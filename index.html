@@ -154,6 +154,19 @@ body::after {
   transition: transform 0.15s;
 }
 .trap-card .audio-btn-big:active { transform: scale(0.92); }
+.trap-card .trap-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.trap-card .trap-rec-btn, .trap-card .trap-play-btn {
+  width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; font-size: 17px;
+  box-shadow: 0 2px 6px rgba(26,60,94,0.15); transition: transform 0.15s;
+}
+.trap-card .trap-rec-btn { background: #fff5f0; color: #c62828; }
+.trap-card .trap-rec-btn:active { transform: scale(0.92); }
+.trap-card .trap-rec-btn.recording { background: #c62828; color: #fff; animation: blink .8s infinite; }
+.trap-card .trap-play-btn { background: var(--blue-light); color: var(--blue-main); }
+.trap-card .trap-play-btn:active { transform: scale(0.92); }
+.trap-card .trap-play-btn:disabled { background: #ece8e0; color: #b3a394; box-shadow: none; cursor: not-allowed; }
+.trap-card .trap-rec-status { font-size: 11px; color: var(--green-ok); margin-top: 4px; display: inline-block; }
 .trap-card .trap-meaning { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; }
 .trap-card .trap-compare {
   display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
@@ -299,18 +312,20 @@ body::after {
 }
 .article-content .sentence .play-icon:hover { opacity: 1; }
 .article-content .sentence .record-btn {
-  font-size: 11px; background: none; border: none; cursor: pointer;
-  padding: 2px 5px; border-radius: 30px; transition: .15s; color: var(--text-secondary);
+  font-size: 16px; background: none; border: none; cursor: pointer;
+  padding: 6px 10px; border-radius: 30px; transition: .15s; color: var(--text-secondary);
+  min-width: 36px; min-height: 36px; display: inline-flex; align-items: center; justify-content: center;
 }
 .article-content .sentence .record-btn:hover { background: #e8e4de; }
 .article-content .sentence .record-btn.recording { color: var(--red); animation: blink .8s infinite; }
 .article-content .sentence .playback-btn {
-  font-size: 11px; background: none; border: none; cursor: pointer;
-  padding: 2px 5px; border-radius: 30px; transition: .15s; color: #2980b9;
+  font-size: 16px; background: none; border: none; cursor: pointer;
+  padding: 6px 10px; border-radius: 30px; transition: .15s; color: #2980b9;
+  min-width: 36px; min-height: 36px; display: inline-flex; align-items: center; justify-content: center;
 }
 .article-content .sentence .playback-btn:hover { background: #e8f0f8; }
 .article-content .sentence .playback-btn:disabled { opacity: .3; cursor: not-allowed; }
-.article-content .sentence .record-status { font-size: 10px; color: #8f7a66; }
+.article-content .sentence .record-status { font-size: 11px; color: #8f7a66; }
 @keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
 .status-bar {
   display: flex; justify-content: space-between; align-items: center;
@@ -653,13 +668,19 @@ function renderCards(catId){
   if(progressText) progressText.textContent = `显示 ${words.length} / ${ALL_WORDS.length} 个单词`;
   grid.innerHTML = words.map((t,i)=>{
     const globalIdx = ALL_WORDS.indexOf(t);
+    const trapKey = 'trap_rec_'+globalIdx;
+    const hasRec = localStorage.getItem(trapKey) !== null;
     return `
     <div class="trap-card">
       <div class="trap-word-row">
         <span class="trap-word-text">${t.word}</span>
-        <button class="audio-btn-big" onclick="speakTrap(${globalIdx})" title="听单词发音">🔊</button>
+        <div class="trap-actions">
+          <button class="audio-btn-big" onclick="speakTrap(${globalIdx})" title="听单词发音">🔊</button>
+          <button class="trap-rec-btn" id="trapRec${globalIdx}" onclick="toggleTrapRecording(${globalIdx})" title="录我的发音">🎙️</button>
+          <button class="trap-play-btn" id="trapPlay${globalIdx}" onclick="playTrapRecording(${globalIdx})" title="听我的回放" ${!hasRec?'disabled':''}>🔁</button>
+        </div>
       </div>
-      <div class="trap-meaning">${t.meaning}</div>
+      <div class="trap-meaning">${t.meaning} <span class="trap-rec-status" id="trapStatus${globalIdx}" style="${hasRec?'display:inline':'display:none'}">✅ 已錄音</span></div>
       <div class="trap-compare">
         <span class="trap-wrong">❌ 常见错误：${t.wrong}</span>
         <span class="trap-arrow">→</span>
@@ -716,6 +737,85 @@ function speakExample(index){
   const sentence = ALL_WORDS[index].ex_pt;
   showToast('📝 播放例句: '+sentence.split(' ').slice(0,5).join(' ')+(sentence.split(' ').length>5?'...':''));
   azureTTS(sentence);
+}
+
+// ─── 發音陷阱頁：錄音 + 回放 ───
+let trapRecordingIdx = -1; // -1 = 冇 trap 錄音中
+
+function toggleTrapRecording(globalIdx){
+  // 如果同一個 trap 錄緊 → 停止
+  if(trapRecordingIdx === globalIdx && mediaRecorder && isRecording){
+    mediaRecorder.stop();
+    return;
+  }
+  // 如果其他錄音中（文章 / 另一個 trap）→ 取消舊
+  if(mediaRecorder && isRecording){
+    try{ mediaRecorder.stop(); }catch(e){}
+    isRecording = false;
+  }
+  // 取消舊 trap 錄音掣 UI
+  if(trapRecordingIdx !== -1 && trapRecordingIdx !== globalIdx){
+    const oldBtn = document.getElementById('trapRec'+trapRecordingIdx);
+    if(oldBtn){ oldBtn.textContent='🎙️'; oldBtn.classList.remove('recording'); }
+  }
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    showToast('⚠️ 此設備不支援錄音'); return;
+  }
+  navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
+    mediaRecorder = new MediaRecorder(stream);
+    audioChunks = [];
+    mediaRecorder.ondataavailable = e=>{ if(e.data.size>0) audioChunks.push(e.data); };
+    mediaRecorder.onstop = function(){
+      const blob = new Blob(audioChunks,{type:'audio/webm'});
+      const reader = new FileReader();
+      reader.onload = function(ev){
+        const key = 'trap_rec_'+globalIdx;
+        try{
+          localStorage.setItem(key, ev.target.result.split(',')[1]);
+          const playBtn = document.getElementById('trapPlay'+globalIdx);
+          if(playBtn) playBtn.disabled = false;
+          const status = document.getElementById('trapStatus'+globalIdx);
+          if(status) status.style.display = 'inline';
+          showToast('✅ 已錄音: '+ALL_WORDS[globalIdx].word);
+        }catch(err){
+          showToast('⚠️ 儲存失敗（空間可能不足）');
+        }
+      };
+      reader.readAsDataURL(blob);
+      stream.getTracks().forEach(t=>t.stop());
+      // 重設掣
+      const recBtn = document.getElementById('trapRec'+globalIdx);
+      if(recBtn){ recBtn.textContent='🎙️'; recBtn.classList.remove('recording'); }
+      trapRecordingIdx = -1;
+      isRecording = false;
+    };
+    mediaRecorder.start();
+    isRecording = true;
+    trapRecordingIdx = globalIdx;
+    const recBtn = document.getElementById('trapRec'+globalIdx);
+    if(recBtn){ recBtn.textContent='⏹'; recBtn.classList.add('recording'); }
+    showToast('🎙️ 錄音中... 再撳「⏹」停止');
+  }).catch(err=>{
+    showToast('⚠️ 無法訪問麥克風');
+    isRecording = false;
+    trapRecordingIdx = -1;
+  });
+}
+
+function playTrapRecording(globalIdx){
+  const key = 'trap_rec_'+globalIdx;
+  const data = localStorage.getItem(key);
+  if(!data){ showToast('⚠️ 冇錄音'); return; }
+  try{
+    const bytes = atob(data), nums = new Array(bytes.length);
+    for(let i=0;i<bytes.length;i++) nums[i]=bytes.charCodeAt(i);
+    const blob = new Blob([new Uint8Array(nums)],{type:'audio/webm'});
+    const url = URL.createObjectURL(blob);
+    const audio = new Audio(url);
+    audio.play();
+    showToast('🔁 回放: '+ALL_WORDS[globalIdx].word);
+    audio.onended = ()=>{ URL.revokeObjectURL(url); showToast('✅ 回放結束'); };
+  }catch(e){ showToast('⚠️ 讀取錄音失敗'); }
 }
 
 // ============================================================
