@@ -1,0 +1,9 @@
+# WorkBuddy project data — never commit
+.workbuddy/
+
+# Node
+node_modules/
+
+# Env / secrets
+.env
+.env.*

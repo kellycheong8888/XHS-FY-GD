@@ -695,33 +695,19 @@ function renderCards(catId){
 let trapUtterance = null;
 function speakTrap(index){
   if(trapUtterance){window.speechSynthesis.cancel();trapUtterance=null}
+  stopAllAudio();
   if(index<0||index>=ALL_WORDS.length)return;
   const word = ALL_WORDS[index].word;
-  const utter = new SpeechSynthesisUtterance(word);
-  utter.lang = 'pt-PT';
-  utter.rate = parseFloat(document.getElementById('speedSlider').value)||0.85;
-  if(window.selectedVoiceURI){
-    const v = window.speechSynthesis.getVoices().find(v=>v.voiceURI===window.selectedVoiceURI);
-    if(v) utter.voice = v;
-  }
-  trapUtterance = utter;
-  window.speechSynthesis.speak(utter);
   showToast('🔊 播放单词: '+word);
+  azureTTS(word);
 }
 function speakExample(index){
   if(trapUtterance){window.speechSynthesis.cancel();trapUtterance=null}
+  stopAllAudio();
   if(index<0||index>=ALL_WORDS.length)return;
   const sentence = ALL_WORDS[index].ex_pt;
-  const utter = new SpeechSynthesisUtterance(sentence);
-  utter.lang = 'pt-PT';
-  utter.rate = parseFloat(document.getElementById('speedSlider').value)||0.85;
-  if(window.selectedVoiceURI){
-    const v = window.speechSynthesis.getVoices().find(v=>v.voiceURI===window.selectedVoiceURI);
-    if(v) utter.voice = v;
-  }
-  trapUtterance = utter;
-  window.speechSynthesis.speak(utter);
   showToast('📝 播放例句: '+sentence.split(' ').slice(0,5).join(' ')+(sentence.split(' ').length>5?'...':''));
+  azureTTS(sentence);
 }
 
 // ============================================================
@@ -1017,6 +1003,10 @@ let selectedVoiceURI = '', isVoiceFixed = false, speechRate = 0.85;
 let mediaRecorder = null, audioChunks = [], isRecording = false;
 let isMasked = false;
 
+// ─── Azure TTS config（經 Vercel /api/tts proxy，key 只存 server env）───
+const TTS_CONFIG = { proxySecret: 'cb8b1739-8dee-4f94-a54f-873ed40d0acc', voice: 'pt-PT-FernandaNeural' };
+let currentAudio = null;
+
 const voiceSelect = document.getElementById('voiceSelect');
 const speedSlider = document.getElementById('speedSlider');
 const speedDisplay = document.getElementById('speedDisplay');
@@ -1039,7 +1029,7 @@ function loadVoices(){
   const voices = speechSynthesis.getVoices();
   if(!voices||!voices.length){setTimeout(loadVoices,300);return}
   const currentValue = voiceSelect.value;
-  voiceSelect.innerHTML = '<option value="">🌐 浏览器默认</option>';
+  voiceSelect.innerHTML = '<option value="">✨ Azure 自然语音 (默认)</option>';
   const ptVoices = voices.filter(v=>v.lang.startsWith('pt'));
   (ptVoices.length?ptVoices:voices).forEach(v=>{
     const opt=document.createElement('option');
@@ -1068,22 +1058,54 @@ function getVoice(){
   return speechSynthesis.getVoices().find(v=>v.voiceURI===selectedVoiceURI)||null;
 }
 
-function speakText(text,callback){
-  if(!text){if(callback)callback();return}
-  let clean=text.replace(/[""]/g,'').trim();
-  if(!clean){if(callback)callback();return}
+// ─── Azure-first TTS 播放引擎 ───
+function stopAllAudio(){
   if(currentUtterance){window.speechSynthesis.cancel();currentUtterance=null}
-  const utterance=new SpeechSynthesisUtterance(clean);
+  if(currentAudio){try{currentAudio.pause();currentAudio=null}catch(e){}currentAudio=null}
+}
+
+// 成功 call /api/tts 播 Azure 高質音頻；失敗/超時 fallback 瀏覽器語音
+function azureTTS(text, onDone){
+  const clean = (text||'').replace(/[""]/g,'').trim();
+  if(!clean){ if(onDone) onDone(); return; }
+  fetch('/api/tts', {
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-proxy-secret':TTS_CONFIG.proxySecret},
+    body: JSON.stringify({ text: clean, voice: TTS_CONFIG.voice, rate: String(speechRate) })
+  }).then(r=>r.json()).then(d=>{
+    if(d && d.audio){
+      const audio = new Audio('data:audio/mp3;base64,'+d.audio);
+      currentAudio = audio;
+      audio.onended = function(){ currentAudio=null; if(onDone) onDone(); };
+      audio.onerror = function(){ currentAudio=null; browserSpeak(clean, onDone); };
+      audio.play().catch(function(){ currentAudio=null; browserSpeak(clean, onDone); });
+    } else {
+      browserSpeak(clean, onDone);
+    }
+  }).catch(function(){ browserSpeak(clean, onDone); });
+}
+
+function browserSpeak(text, onDone){
+  if(currentUtterance){window.speechSynthesis.cancel();currentUtterance=null}
+  const utterance=new SpeechSynthesisUtterance(text);
   utterance.lang='pt-PT';utterance.rate=speechRate;utterance.pitch=1;
   const voice=getVoice();if(voice)utterance.voice=voice;
-  utterance.onend=function(){currentUtterance=null;if(callback)callback()};
-  utterance.onerror=function(){currentUtterance=null;if(!isCancelled&&callback)callback()};
+  utterance.onend=function(){currentUtterance=null;if(onDone)onDone()};
+  utterance.onerror=function(){currentUtterance=null;if(!isCancelled&&onDone)onDone()};
   currentUtterance=utterance;
   window.speechSynthesis.speak(utterance);
 }
 
+function speakText(text,callback){
+  if(!text){if(callback)callback();return}
+  let clean=text.replace(/[""]/g,'').trim();
+  if(!clean){if(callback)callback();return}
+  stopAllAudio();
+  azureTTS(clean, callback);
+}
+
 function stopSpeaking(){
-  if(currentUtterance){window.speechSynthesis.cancel();currentUtterance=null}
+  stopAllAudio();
   clearTimeout(timeoutId);isCancelled=true;
 }
 
