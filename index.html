@@ -293,7 +293,7 @@ body::after {
 .article-content .sentence .text.zh-text { color: var(--text-secondary); cursor: default; font-size: 14px; }
 .article-content .sentence .text.pt-text { cursor: pointer; transition: .2s; padding: 2px 4px; border-radius: 4px; }
 .article-content .sentence .text.pt-text:hover { text-decoration: underline; color: var(--blue-deep); }
-.article-content .sentence .text.pt-text.masked { background: var(--blue-deep); color: var(--blue-deep) !important; border-radius: 4px; padding: 2px 8px; cursor: pointer; user-select: none; }
+.article-content .sentence .text.masked { background: var(--blue-deep); color: var(--blue-deep) !important; border-radius: 4px; padding: 2px 8px; cursor: pointer; user-select: none; }
 .article-content .sentence .play-icon {
   font-size: 12px; color: #8f7a66; opacity: .4; transition: opacity .2s; cursor: pointer;
 }
@@ -421,10 +421,11 @@ body::after {
       </div>
     </div>
     <div class="top-actions">
-      <button class="btn-toggle" id="toggleMaskBtn">🔒 遮挡葡语</button>
+      <button class="btn-toggle" id="toggleMaskBtn">🔒 遮挡双语</button>
       <button class="btn-show" id="showAllBtn">🔓 全部显示</button>
       <button class="btn-hide" id="hideAllBtn">🔒 全部遮挡</button>
     </div>
+    <div style="margin:-4px 16px 10px;font-size:11px;color:var(--text-muted);" id="maskHint">💡 遮挡后点击句子即可显示内容，再点一次隐藏</div>
     <div class="article-tabs" id="articleTabs"></div>
     <div class="play-controls">
       <button class="btn-play" id="playBtn">▶️ 播放全部</button>
@@ -1121,16 +1122,17 @@ function stopSpeaking(){
 }
 
 function applyMask(){
-  document.querySelectorAll('.article-content .sentence .text.pt-text').forEach(el=>{if(!el.classList.contains('unmasked'))el.classList.add('masked')});
-  isMasked=true;toggleMaskBtn.textContent='🔓 显示葡语';toggleMaskBtn.classList.add('unmask');
+  // 雙語遮擋：葡文 + 中文都遮，點擊句子先顯示（方便背句子）
+  document.querySelectorAll('.article-content .sentence .text').forEach(el=>{if(!el.classList.contains('unmasked'))el.classList.add('masked')});
+  isMasked=true;toggleMaskBtn.textContent='🔓 显示句子';toggleMaskBtn.classList.add('unmask');
 }
 function removeMask(){
-  document.querySelectorAll('.article-content .sentence .text.pt-text').forEach(el=>el.classList.remove('masked'));
-  isMasked=false;toggleMaskBtn.textContent='🔒 遮挡葡语';toggleMaskBtn.classList.remove('unmask');
+  document.querySelectorAll('.article-content .sentence .text').forEach(el=>el.classList.remove('masked'));
+  isMasked=false;toggleMaskBtn.textContent='🔒 遮挡双语';toggleMaskBtn.classList.remove('unmask');
 }
 function toggleMask(){
   isMasked?removeMask():applyMask();
-  showToast(isMasked?'🔒 已遮挡葡语':'🔓 已显示所有葡语');
+  showToast(isMasked?'🔒 已遮挡双语，点句子显示':'🔓 已显示所有句子');
 }
 function handleMaskClick(el){
   if(!isMasked)return;
@@ -1150,7 +1152,7 @@ function renderTabs(){
       if(idx!==currentArticleIndex){
         stopSpeaking();
         if(mediaRecorder&&isRecording){mediaRecorder.stop();isRecording=false}
-        isMasked=false;toggleMaskBtn.textContent='🔒 遮挡葡语';toggleMaskBtn.classList.remove('unmask');
+        isMasked=false;toggleMaskBtn.textContent='🔒 遮挡双语';toggleMaskBtn.classList.remove('unmask');
         renderArticle(idx);
         showToast('📖 已切换到 '+ARTICLES_RAW[idx].icon+' '+ARTICLES_RAW[idx].title);
       }
@@ -1218,9 +1220,11 @@ function updateButtons(){
 }
 
 function bindEvents(){
-  document.querySelectorAll('.sentence .pt-text').forEach(el=>{
+  // 中葡句子都可點擊：遮擋模式 toggle 顯示/隱藏；非遮擋時點葡文播放
+  document.querySelectorAll('.sentence .text').forEach(el=>{
     el.addEventListener('click',function(e){
       if(isMasked){handleMaskClick(this);return}
+      if(!this.classList.contains('pt-text'))return;
       const idx=parseInt(this.dataset.index);
       if(ARTICLES_RAW[currentArticleIndex].sentences[idx].type==='pt'){
         if(isPlaying&&!isSinglePlay){stopSpeaking();isPlaying=false;isPaused=false}
@@ -1328,8 +1332,8 @@ playBtn.addEventListener('click',handlePlay);
 pauseBtn.addEventListener('click',handlePause);
 resumeBtn.addEventListener('click',handleResume);
 toggleMaskBtn.addEventListener('click',toggleMask);
-showAllBtn.addEventListener('click',function(){removeMask();document.querySelectorAll('.article-content .sentence .text.pt-text.unmasked').forEach(el=>el.classList.remove('unmasked'));showToast('🔓 全部显示')});
-hideAllBtn.addEventListener('click',function(){document.querySelectorAll('.article-content .sentence .text.pt-text.unmasked').forEach(el=>el.classList.remove('unmasked'));applyMask();showToast('🔒 全部遮挡')});
+showAllBtn.addEventListener('click',function(){removeMask();document.querySelectorAll('.article-content .sentence .text.unmasked').forEach(el=>el.classList.remove('unmasked'));showToast('🔓 全部显示')});
+hideAllBtn.addEventListener('click',function(){document.querySelectorAll('.article-content .sentence .text.unmasked').forEach(el=>el.classList.remove('unmasked'));applyMask();showToast('🔒 全部遮挡')});
 
 progressWrap.addEventListener('click',function(e){
   const pct=(e.clientX-this.getBoundingClientRect().left)/this.offsetWidth;
