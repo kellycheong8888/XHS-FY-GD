@@ -13,6 +13,14 @@
 <meta name="theme-color" content="#1A3C5E">
 <meta name="application-name" content="U记欧葡跟读">
 <title>U记欧葡跟读 · 发音训练</title>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TCVB98ZGZ2"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-TCVB98ZGZ2', { anonymize_ip: true });
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=ZCOOL+KuaiLe&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -393,10 +401,10 @@ body::after {
       </div>
     </div>
 
-    <div class="section-title">🔊 今日发音陷阱</div>
+    <div class="section-title">🔊 今天发音陷阱</div>
     <div id="homeTraps" class="trap-grid"></div>
 
-    <div class="section-title">📖 今日跟读推荐</div>
+    <div class="section-title">📖 今天跟读推荐</div>
     <div id="homeReadRecommend" class="trap-card" style="margin:0 16px 20px;cursor:pointer;">
       <div style="display:flex;align-items:center;gap:10px">
         <span style="font-size:26px" id="homeRecIcon">🛁</span>
@@ -488,8 +496,9 @@ body::after {
 
 <div class="toast" id="toast"></div>
 
-<!-- 預先建立 audio element（iOS Safari 對隱藏 DOM element 嘅 data URI 播放更穩定）-->
+<!-- 预先建立 audio element（iOS Safari 对隐藏 DOM element 的 data URI 播放更穩定）-->
 <audio id="azureAudio" preload="auto" playsinline style="display:none"></audio>
+<script src="static-audio.js"></script>
 
 <script>
 // ============================================================
@@ -552,7 +561,7 @@ const ALL_WORDS = [
   {cat:'nasal-ao', word:'mãe', meaning:'母亲', wrong:'买', correct:'买因(鼻音)', tip:'ãe 不同于 ão，嘴横向展开发鼻音' ,ex_pt:'A minha mãe.', ex_zh:'我的妈妈。'},
   {cat:'nasal-ao', word:'pães', meaning:'面包(复数)', wrong:'派斯', correct:'派因什', tip:'ães 三重音！ã+鼻+e+s=sh', ex_pt:'Compro pães.', ex_zh:'我买面包。'},
   {cat:'nasal-ao', word:'cães', meaning:'狗(复数)', wrong:'开斯', correct:'开因什', tip:'ães 在欧葡读鼻音+sh', ex_pt:'Os cães correm.', ex_zh:'狗在跑。'},
-  {cat:'nasal-em', word:'bem', meaning:'好/ well', wrong:'办', correct:'班因(鼻音)', tip:'em 是鼻音/e/收/m/，不是"本"', ex_pt:'Estou bem.', ex_zh:'我很好。'},
+  {cat:'nasal-em', word:'bem', meaning:'很/ well', wrong:'办', correct:'班因(鼻音)', tip:'em 是鼻音/e/收/m/，不是"本"', ex_pt:'Estou bem.', ex_zh:'我很好。'},
   {cat:'nasal-em', word:'também', meaning:'也', wrong:'塔办', correct:'塔班因', tip:'-bém 是鼻音，重音在最后', ex_pt:'Eu também.', ex_zh:'我也是。'},
   {cat:'nasal-em', word:'quem', meaning:'谁', wrong:'肯', correct:'铿(鼻音)', tip:'quem 的 em 是鼻音', ex_pt:'Quem é ele?', ex_zh:'他是谁？'},
   {cat:'nasal-em', word:'cem', meaning:'一百', wrong:'森', correct:'森(别卷舌)', tip:'欧葡cem的em接近鼻音，不是"森"但也不卷舌', ex_pt:'Cem anos.', ex_zh:'一百年。'},
@@ -570,10 +579,10 @@ const ALL_WORDS = [
   {cat:'consoante-lh', word:'olho', meaning:'眼睛', wrong:'奥奥', correct:'奥溜', tip:'lh = 舌抵上颚出气', ex_pt:'Olho azul.', ex_zh:'蓝色的眼睛。'},
   {cat:'consoante-lh', word:'alho', meaning:'大蒜', wrong:'阿奥', correct:'阿溜', tip:'alho不是"阿奥"，"阿溜"才对', ex_pt:'Alho na sopa.', ex_zh:'汤里的大蒜。'},
   {cat:'consoante-lh', word:'melhor', meaning:'更好', wrong:'美奥', correct:'美溜(喉r)', tip:'lh + r = /ʎ/ + /ʁ/', ex_pt:'É melhor assim.', ex_zh:'这样更好。'},
-  {cat:'consoante-lh', word:'conselho', meaning:'建议', wrong:'空赛奥', correct:'空塞溜', tip:'selho 还是lh音', ex_pt:'Bom conselho.', ex_zh:'好建议。'},
+  {cat:'consoante-lh', word:'conselho', meaning:'建议', wrong:'空赛奥', correct:'空塞溜', tip:'selho 还是lh音', ex_pt:'Bom conselho.', ex_zh:'很建议。'},
   {cat:'consoante-lh', word:'falha', meaning:'错误/失误', wrong:'法拉', correct:'法溜呀', tip:'falha的lh同样是舌抵上鄂', ex_pt:'Sem falhas.', ex_zh:'没有失误。'},
   {cat:'consoante-nh', word:'vinho', meaning:'酒', wrong:'维尼奥', correct:'维纽', tip:'nh= /ɲ/ 鼻音，嘴形微笑，像西语ñ', ex_pt:'Vinho tinto.', ex_zh:'红酒。'},
-  {cat:'consoante-nh', word:'sonho', meaning:'梦', wrong:'索尼奥', correct:'索纽', tip:'不是"松尼奥"，"索纽"快读', ex_pt:'Bom sonho!', ex_zh:'好梦！'},
+  {cat:'consoante-nh', word:'sonho', meaning:'梦', wrong:'索尼奥', correct:'索纽', tip:'不是"松尼奥"，"索纽"快读', ex_pt:'Bom sonho!', ex_zh:'很梦！'},
   {cat:'consoante-nh', word:'banho', meaning:'洗澡', wrong:'巴尼奥', correct:'巴纽', tip:'nh 像"妞"但鼻音', ex_pt:'Tomar banho.', ex_zh:'洗澡。'},
   {cat:'consoante-nh', word:'manhã', meaning:'早上', wrong:'马尼亚', correct:'马纽(鼻母)', tip:'nh+ã 是鼻音元音，鼻腔共鸣', ex_pt:'Bom dia, manhã.', ex_zh:'早安。'},
   {cat:'consoante-nh', word:'montanha', meaning:'山', wrong:'蒙塔尼亚', correct:'蒙塔纽(鼻)', tip:'nha 发音像"尼呀"但鼻音化', ex_pt:'A montanha alta.', ex_zh:'高山。'},
@@ -581,7 +590,7 @@ const ALL_WORDS = [
   {cat:'consoante-nh', word:'linha', meaning:'线', wrong:'李尼亚', correct:'李纽', tip:'nh 鼻音+牙关紧', ex_pt:'Linha reta.', ex_zh:'直线。'},
   {cat:'consoante-nh', word:'ganhar', meaning:'赢/得到', wrong:'嘎尼亚', correct:'嗄纽(喉r)', tip:'nhar = /ɲar/ 然后r喉咙音', ex_pt:'Vou ganhar!', ex_zh:'我会赢！'},
   {cat:'consoante-nh', word:'vizinho', meaning:'邻居', wrong:'维基尼奥', correct:'维基纽', tip:'-inho 是葡语"小"的意思，nh 一定要鼻音', ex_pt:'Meu vizinho.', ex_zh:'我的邻居。'},
-  {cat:'consoante-nh', word:'companhia', meaning:'公司/陪伴', wrong:'康帕尼亚', correct:'康帕纽呀', tip:'nhia= /ɲiɐ/ 鼻音', ex_pt:'Boa companhia.', ex_zh:'好陪伴。'},
+  {cat:'consoante-nh', word:'companhia', meaning:'公司/陪伴', wrong:'康帕尼亚', correct:'康帕纽呀', tip:'nhia= /ɲiɐ/ 鼻音', ex_pt:'Boa companhia.', ex_zh:'很陪伴。'},
   {cat:'s-final', word:'mais', meaning:'更多', wrong:'迈斯', correct:'迈什', tip:'s在字尾必读/ʃ/（sh），不要读/s/', ex_pt:'Quero mais.', ex_zh:'我想要更多。'},
   {cat:'s-final', word:'depois', meaning:'之后', wrong:'德波斯', correct:'德波什', tip:'-ois 的s也是sh音', ex_pt:'Depois falo.', ex_zh:'之后再说。'},
   {cat:'s-final', word:'português', meaning:'葡萄牙语', wrong:'波图盖斯', correct:'波图给什', tip:'-ês 的s读/ʃ/，这是欧葡标志', ex_pt:'Falo português.', ex_zh:'我说葡语。'},
@@ -594,7 +603,7 @@ const ALL_WORDS = [
   {cat:'s-final', word:'vez', meaning:'次/回', wrong:'外斯', correct:'外什', tip:'vez的z同样读/ʃ/', ex_pt:'Outra vez.', ex_zh:'再一次。'},
   {cat:'bp-dt', word:'bala', meaning:'子弹', wrong:'帕拉', correct:'把拉', tip:'b是浊音（声带振），不是p', ex_pt:'Uma bala.', ex_zh:'一颗子弹。'},
   {cat:'bp-dt', word:'pala', meaning:'帽檐/遮篷', wrong:'帕拉', correct:'帕拉', tip:'p是清音（声带不振），不要混同 b', ex_pt:'A pala do boné.', ex_zh:'��子的帽檐。'},
-  {cat:'bp-dt', word:'boa', meaning:'好的(f)', wrong:'波阿', correct:'波啊', tip:'b是浊音/波/声带振，不要读成"poa"', ex_pt:'Boa ideia!', ex_zh:'好主意！'},
+  {cat:'bp-dt', word:'boa', meaning:'很的(f)', wrong:'波阿', correct:'波啊', tip:'b是浊音/波/声带振，不要读成"poa"', ex_pt:'Boa ideia!', ex_zh:'很主意！'},
   {cat:'bp-dt', word:'pato', meaning:'鸭子', wrong:'八图', correct:'帕图', tip:'p是清音，不是b', ex_pt:'O pato nada.', ex_zh:'鸭子在游泳。'},
   {cat:'bp-dt', word:'dia', meaning:'日/天', wrong:'迪亚', correct:'迪亚(soft d)', tip:'欧葡d不读英文硬d，舌放齿间', ex_pt:'Bom dia.', ex_zh:'早安。'},
   {cat:'bp-dt', word:'tia', meaning:'阿姨', wrong:'迪亚', correct:'踢呀', tip:'t是清音，和d不同——t要冲气', ex_pt:'A minha tia.', ex_zh:'我的阿姨。'},
@@ -680,7 +689,7 @@ function renderCards(catId){
           <button class="trap-play-btn" id="trapPlay${globalIdx}" onclick="playTrapRecording(${globalIdx})" title="听我的回放" ${!hasRec?'disabled':''}>🔁</button>
         </div>
       </div>
-      <div class="trap-meaning">${t.meaning} <span class="trap-rec-status" id="trapStatus${globalIdx}" style="${hasRec?'display:inline':'display:none'}">✅ 已錄音</span></div>
+      <div class="trap-meaning">${t.meaning} <span class="trap-rec-status" id="trapStatus${globalIdx}" style="${hasRec?'display:inline':'display:none'}">✅ 已录音</span></div>
       <div class="trap-compare">
         <span class="trap-wrong">❌ 常见错误：${t.wrong}</span>
         <span class="trap-arrow">→</span>
@@ -739,27 +748,27 @@ function speakExample(index){
   azureTTS(sentence);
 }
 
-// ─── 發音陷阱頁：錄音 + 回放 ───
-let trapRecordingIdx = -1; // -1 = 冇 trap 錄音中
+// ─── 发音陷阱页：录音 + 回放 ───
+let trapRecordingIdx = -1; // -1 = 没 trap 录音中
 
 function toggleTrapRecording(globalIdx){
-  // 如果同一個 trap 錄緊 → 停止
+  // 如果同一个 trap 录緊 → 停止
   if(trapRecordingIdx === globalIdx && mediaRecorder && isRecording){
     mediaRecorder.stop();
     return;
   }
-  // 如果其他錄音中（文章 / 另一個 trap）→ 取消舊
+  // 如果其他录音中（文章 / 另一个 trap）→ 取消舊
   if(mediaRecorder && isRecording){
     try{ mediaRecorder.stop(); }catch(e){}
     isRecording = false;
   }
-  // 取消舊 trap 錄音掣 UI
+  // 取消舊 trap 录音掣 UI
   if(trapRecordingIdx !== -1 && trapRecordingIdx !== globalIdx){
     const oldBtn = document.getElementById('trapRec'+trapRecordingIdx);
     if(oldBtn){ oldBtn.textContent='🎙️'; oldBtn.classList.remove('recording'); }
   }
   if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
-    showToast('⚠️ 此設備不支援錄音'); return;
+    showToast('⚠️ 此设备不支援录音'); return;
   }
   navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
     mediaRecorder = new MediaRecorder(stream);
@@ -776,14 +785,14 @@ function toggleTrapRecording(globalIdx){
           if(playBtn) playBtn.disabled = false;
           const status = document.getElementById('trapStatus'+globalIdx);
           if(status) status.style.display = 'inline';
-          showToast('✅ 已錄音: '+ALL_WORDS[globalIdx].word);
+          showToast('✅ 已录音: '+ALL_WORDS[globalIdx].word);
         }catch(err){
-          showToast('⚠️ 儲存失敗（空間可能不足）');
+          showToast('⚠️ 儲存失敗（空间可能不足）');
         }
       };
       reader.readAsDataURL(blob);
       stream.getTracks().forEach(t=>t.stop());
-      // 重設掣
+      // 重设掣
       const recBtn = document.getElementById('trapRec'+globalIdx);
       if(recBtn){ recBtn.textContent='🎙️'; recBtn.classList.remove('recording'); }
       trapRecordingIdx = -1;
@@ -794,9 +803,9 @@ function toggleTrapRecording(globalIdx){
     trapRecordingIdx = globalIdx;
     const recBtn = document.getElementById('trapRec'+globalIdx);
     if(recBtn){ recBtn.textContent='⏹'; recBtn.classList.add('recording'); }
-    showToast('🎙️ 錄音中... 再撳「⏹」停止');
+    showToast('🎙️ 录音中... 再撳「⏹」停止');
   }).catch(err=>{
-    showToast('⚠️ 無法訪問麥克風');
+    showToast('⚠️ 無法访问麥克風');
     isRecording = false;
     trapRecordingIdx = -1;
   });
@@ -805,7 +814,7 @@ function toggleTrapRecording(globalIdx){
 function playTrapRecording(globalIdx){
   const key = 'trap_rec_'+globalIdx;
   const data = localStorage.getItem(key);
-  if(!data){ showToast('⚠️ 冇錄音'); return; }
+  if(!data){ showToast('⚠️ 没录音'); return; }
   try{
     const bytes = atob(data), nums = new Array(bytes.length);
     for(let i=0;i<bytes.length;i++) nums[i]=bytes.charCodeAt(i);
@@ -814,8 +823,8 @@ function playTrapRecording(globalIdx){
     const audio = new Audio(url);
     audio.play();
     showToast('🔁 回放: '+ALL_WORDS[globalIdx].word);
-    audio.onended = ()=>{ URL.revokeObjectURL(url); showToast('✅ 回放結束'); };
-  }catch(e){ showToast('⚠️ 讀取錄音失敗'); }
+    audio.onended = ()=>{ URL.revokeObjectURL(url); showToast('✅ 回放结束'); };
+  }catch(e){ showToast('⚠️ 读取录音失敗'); }
 }
 
 // ============================================================
@@ -873,7 +882,7 @@ const ARTICLES_RAW = [
       {text:'As cortinas são azuis.',type:'pt'},
       {text:'窗帘是蓝色的。',type:'zh'},
       {text:'O quarto é tranquilo e parece um bom lugar para descansar.',type:'pt'},
-      {text:'房间很安静，看起来是一个休息的好地方。',type:'zh'}
+      {text:'房间很安静，看起来是一个休息的很地方。',type:'zh'}
     ]},
   {title:'Sala de estar',icon:'🛋️',id:3,
     sentences:[
@@ -888,7 +897,7 @@ const ARTICLES_RAW = [
       {text:'As cortinas são bege e há um tapete grande no chão.',type:'pt'},
       {text:'窗帘是米色的，地板上有大地毯。',type:'zh'},
       {text:'A sala é confortável e parece um bom espaço para relaxar com a família.',type:'pt'},
-      {text:'客厅很舒适，看起来是一个和家人放松的好地方。',type:'zh'}
+      {text:'客厅很舒适，看起来是一个和家人放松的很地方。',type:'zh'}
     ]},
   {title:'Jantar em Família',icon:'🍽️',id:4,
     sentences:[
@@ -1079,7 +1088,7 @@ const ARTICLES_RAW = [
       {text:'Ele anda numa trotineta elétrica.',type:'pt'},
       {text:'他正在骑电动滑板车。',type:'zh'},
       {text:'O dia está ensolarado e o tempo é bom.',type:'pt'},
-      {text:'今日阳光充足、天气很好。',type:'zh'},
+      {text:'今天阳光充足、天气很好。',type:'zh'},
       {text:'Há carros e casas ao fundo da rua.',type:'pt'},
       {text:'街道背景有汽车和房子。',type:'zh'},
       {text:'É um meio de transporte rápido.',type:'pt'},
@@ -1111,8 +1120,8 @@ let selectedVoiceURI = '', isVoiceFixed = false, speechRate = 0.85;
 let mediaRecorder = null, audioChunks = [], isRecording = false;
 let isMasked = false;
 
-// ─── Azure TTS config（經 Vercel /api/tts proxy，key 只存 server env）───
-const TTS_CONFIG = { proxySecret: 'cb8b1739-8dee-4f94-a54f-873ed40d0acc', voice: 'pt-PT-FernandaNeural' };
+// ─── Azure TTS config（经 Vercel /api/tts proxy，key 只存 server env）───
+const TTS_CONFIG = { proxySecret: '5242e788-ee81-42b2-a5b7-9f1b624b67fd', voice: 'pt-PT-FernandaNeural' };
 let currentAudio = null;
 
 const voiceSelect = document.getElementById('voiceSelect');
@@ -1173,10 +1182,30 @@ function stopAllAudio(){
   const el=document.getElementById('azureAudio');if(el){try{el.pause();el.removeAttribute('src')}catch(e){}}
 }
 
-// 成功 call /api/tts 播 Azure 高質音頻；失敗/超時 fallback 瀏覽器語音
+// 无延迟优化：若文本在 tts-manifest.json 中且语速为默认 0.85，直接播静态 mp3（CDN <100ms）
+// 否则走 azureLive() 实时合成（/api/tts），保证任意语速/未登记文本仍可发音
 function azureTTS(text, onDone){
   const clean = (text||'').replace(/[""]/g,'').trim();
   if(!clean){ if(onDone) onDone(); return; }
+  const key = clean.toLowerCase();
+  const staticUrl = (window.__AUDIO_MAP && window.__AUDIO_MAP[key]) || null;
+  if(staticUrl && Math.abs(speechRate - 0.85) < 0.001){
+    const el = document.getElementById('azureAudio');
+    if(el){
+      currentAudio = el;
+      el.src = staticUrl;
+      el.onended = function(){ el.onerror=null; currentAudio=null; if(onDone) onDone(); };
+      el.onerror = function(){ el.onended=null; currentAudio=null; azureLive(clean, onDone); };
+      const p = el.play();
+      if(p && p.catch){ p.catch(function(){ el.onended=null; currentAudio=null; azureLive(clean, onDone); }); }
+      return;
+    }
+  }
+  azureLive(clean, onDone);
+}
+
+// 实时合成（/api/tts 代理）→ 失败/超时 fallback 浏览器语音
+function azureLive(clean, onDone){
   fetch('/api/tts', {
     method:'POST',
     headers:{'Content-Type':'application/json','x-proxy-secret':TTS_CONFIG.proxySecret},
@@ -1222,7 +1251,7 @@ function stopSpeaking(){
 }
 
 function applyMask(){
-  // 雙語遮擋：葡文 + 中文都遮，點擊句子先顯示（方便背句子）
+  // 双语遮擋：葡文 + 中文都遮，点击句子先显示（方便背句子）
   document.querySelectorAll('.article-content .sentence .text').forEach(el=>{if(!el.classList.contains('unmasked'))el.classList.add('masked')});
   isMasked=true;toggleMaskBtn.textContent='🔓 显示句子';toggleMaskBtn.classList.add('unmask');
 }
@@ -1320,7 +1349,7 @@ function updateButtons(){
 }
 
 function bindEvents(){
-  // 中葡句子都可點擊：遮擋模式 toggle 顯示/隱藏；非遮擋時點葡文播放
+  // 中葡句子都可点击：遮擋模式 toggle 显示/隐藏；非遮擋时点葡文播放
   document.querySelectorAll('.sentence .text').forEach(el=>{
     el.addEventListener('click',function(e){
       if(isMasked){handleMaskClick(this);return}
