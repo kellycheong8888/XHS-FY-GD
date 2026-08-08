@@ -771,16 +771,19 @@ function toggleTrapRecording(globalIdx){
     showToast('⚠️ 此设备不支援录音'); return;
   }
   navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
-    mediaRecorder = new MediaRecorder(stream);
+    const recTypes=['audio/webm','audio/ogg;codecs=opus','audio/mp4'];
+    const recMime=recTypes.find(t=>MediaRecorder.isTypeSupported(t))||'audio/webm';
+    mediaRecorder = new MediaRecorder(stream,{mimeType:recMime});
     audioChunks = [];
     mediaRecorder.ondataavailable = e=>{ if(e.data.size>0) audioChunks.push(e.data); };
     mediaRecorder.onstop = function(){
-      const blob = new Blob(audioChunks,{type:'audio/webm'});
+      const blob = new Blob(audioChunks,{type:recMime});
       const reader = new FileReader();
       reader.onload = function(ev){
         const key = 'trap_rec_'+globalIdx;
         try{
-          localStorage.setItem(key, ev.target.result.split(',')[1]);
+          const b64 = ev.target.result.split(',')[1];
+          localStorage.setItem(key, JSON.stringify({mime:recMime,data:b64}));
           const playBtn = document.getElementById('trapPlay'+globalIdx);
           if(playBtn) playBtn.disabled = false;
           const status = document.getElementById('trapStatus'+globalIdx);
@@ -805,7 +808,10 @@ function toggleTrapRecording(globalIdx){
     if(recBtn){ recBtn.textContent='⏹'; recBtn.classList.add('recording'); }
     showToast('🎙️ 录音中... 再撳「⏹」停止');
   }).catch(err=>{
-    showToast('⚠️ 無法访问麥克風');
+    let msg='⚠️ 無法访问麥克風';
+    if(err&&err.name==='NotAllowedError')msg='⚠️ 请允许麥克風權限';
+    else if(err&&err.name==='NotFoundError')msg='⚠️ 找不到麥克風設備';
+    showToast(msg);
     isRecording = false;
     trapRecordingIdx = -1;
   });
@@ -813,12 +819,14 @@ function toggleTrapRecording(globalIdx){
 
 function playTrapRecording(globalIdx){
   const key = 'trap_rec_'+globalIdx;
-  const data = localStorage.getItem(key);
-  if(!data){ showToast('⚠️ 没录音'); return; }
+  const raw = localStorage.getItem(key);
+  if(!raw){ showToast('⚠️ 没录音'); return; }
   try{
-    const bytes = atob(data), nums = new Array(bytes.length);
+    let record;
+    try{ record = JSON.parse(raw); }catch(e){ record = {mime:'audio/webm',data:raw}; }
+    const bytes = atob(record.data), nums = new Array(bytes.length);
     for(let i=0;i<bytes.length;i++) nums[i]=bytes.charCodeAt(i);
-    const blob = new Blob([new Uint8Array(nums)],{type:'audio/webm'});
+    const blob = new Blob([new Uint8Array(nums)],{type:record.mime||'audio/webm'});
     const url = URL.createObjectURL(blob);
     const audio = new Audio(url);
     audio.play();
@@ -1424,13 +1432,16 @@ function handleResume(){if(isPaused){isCancelled=false;resumePlaying();showToast
 function toggleRecording(btn,key,index){
   if(isRecording){if(mediaRecorder){mediaRecorder.stop();isRecording=false;btn.textContent='🎙';btn.classList.remove('recording');showToast('⏹️ 录音已停止')}return}
   navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
-    mediaRecorder=new MediaRecorder(stream);audioChunks=[];
+    const recTypes=['audio/webm','audio/ogg;codecs=opus','audio/mp4'];
+    const recMime=recTypes.find(t=>MediaRecorder.isTypeSupported(t))||'audio/webm';
+    mediaRecorder=new MediaRecorder(stream,{mimeType:recMime});audioChunks=[];
     mediaRecorder.ondataavailable=event=>{if(event.data.size>0)audioChunks.push(event.data)};
     mediaRecorder.onstop=function(){
-      const blob=new Blob(audioChunks,{type:'audio/webm'});
+      const blob=new Blob(audioChunks,{type:recMime});
       const reader=new FileReader();
       reader.onload=function(e){
-        localStorage.setItem(key,e.target.result.split(',')[1]);
+        const b64=e.target.result.split(',')[1];
+        localStorage.setItem(key,JSON.stringify({mime:recMime,data:b64}));
         btn.textContent='🎙';btn.classList.remove('recording');isRecording=false;
         const pb=btn.parentElement.querySelector('.playback-btn');if(pb)pb.disabled=false;
         let ss=btn.parentElement.querySelector('.record-status');
@@ -1441,16 +1452,23 @@ function toggleRecording(btn,key,index){
       stream.getTracks().forEach(t=>t.stop());
     };
     mediaRecorder.start();isRecording=true;btn.textContent='⏹';btn.classList.add('recording');showToast('🎙 录音中... 点击停止');
-  }).catch(()=>showToast(' 无法访问麦克风，请允许权限'));
+  }).catch(err=>{
+    let msg=' 无法访问麦克风，请允许权限';
+    if(err&&err.name==='NotAllowedError')msg=' 请允许麥克風權限后重试';
+    else if(err&&err.name==='NotFoundError')msg=' 找不到麥克風設備';
+    showToast(msg);
+  });
 }
 
 function playRecording(key){
-  const data=localStorage.getItem(key);
-  if(!data){showToast(' 没有找到录音');return}
+  const raw=localStorage.getItem(key);
+  if(!raw){showToast(' 没有找到录音');return}
   try{
-    const byteCharacters=atob(data),byteNumbers=new Array(byteCharacters.length);
+    let record;
+    try{ record=JSON.parse(raw); }catch(e){ record={mime:'audio/webm',data:raw}; }
+    const byteCharacters=atob(record.data),byteNumbers=new Array(byteCharacters.length);
     for(let i=0;i<byteCharacters.length;i++)byteNumbers[i]=byteCharacters.charCodeAt(i);
-    const blob=new Blob([new Uint8Array(byteNumbers)],{type:'audio/webm'});
+    const blob=new Blob([new Uint8Array(byteNumbers)],{type:record.mime||'audio/webm'});
     const audio=new Audio(URL.createObjectURL(blob));audio.play();showToast('🔊 回放录音中...');
     audio.onended=()=>showToast('✅ 回放结束');
   }catch(e){showToast(' 无法读取录音文件')}
