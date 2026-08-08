@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="zh-Hans">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-orientations" content="portrait">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+<meta name="apple-mobile-web-app-title" content="UU欧葡跟读">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#1A3C5E">
+<meta name="application-name" content="U记欧葡跟读">
+<title>U记欧葡跟读 · 发音训练</title>
+<!-- Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TCVB98ZGZ2"></script>
+<script>
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'G-TCVB98ZGZ2', { anonymize_ip: true });
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=ZCOOL+KuaiLe&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --blue-deep: #1A3C5E; --blue-main: #256D9B; --blue-mid: #4794C7; --blue-light: #E8F1F8;
+  --cream: #F5F0E8; --cream-light: #FAF7F2;
+  --gold: #E0B854; --gold-light: #F0E2C0; --gold-dark: #C49E40;
+  --logo-color: #8B2845; --green-ok: #2E7D32; --red: #C62828;
+  --text-primary: #1A2A3A; --text-secondary: #4A5A6A; --text-muted: #8A96A3;
+  --white: #FFFFFF;
+  --shadow-sm: 0 1px 3px rgba(26,60,94,0.08);
+  --shadow-md: 0 4px 16px rgba(26,60,94,0.10);
+  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 20px;
+  --font-display: 'Fredoka', 'ZCOOL KuaiLe', 'Lora', 'PingFang SC', serif;
+  --font-ui: 'Nunito', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+}
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html, body { scroll-behavior: smooth; }
+body {
+  font-family: var(--font-ui); color: var(--text-primary);
+  background-color: var(--cream); min-height: 100vh; overflow-x: hidden;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='90' height='90' viewBox='0 0 90 90'><defs><radialGradient id='rose' cx='50%25' cy='50%25' r='50%25'><stop offset='0%25' stop-color='%238B2845' stop-opacity='0.10'/><stop offset='100%25' stop-color='%238B2845' stop-opacity='0'/></radialGradient></defs><rect width='90' height='90' fill='%23F5F0E8'/><rect width='90' height='90' fill='url(%23rose)'/><circle cx='45' cy='45' r='8' fill='none' stroke='%231A3C5E' stroke-opacity='0.10' stroke-width='1'/><circle cx='45' cy='20' r='14' fill='none' stroke='%238B2845' stroke-opacity='0.08' stroke-width='0.8'/><circle cx='45' cy='70' r='14' fill='none' stroke='%238B2845' stroke-opacity='0.08' stroke-width='0.8'/><circle cx='20' cy='45' r='14' fill='none' stroke='%238B2845' stroke-opacity='0.08' stroke-width='0.8'/><circle cx='70' cy='45' r='14' fill='none' stroke='%238B2845' stroke-opacity='0.08' stroke-width='0.8'/><circle cx='28' cy='28' r='12' fill='none' stroke='%23E0B854' stroke-opacity='0.10' stroke-width='0.7'/><circle cx='62' cy='28' r='12' fill='none' stroke='%23E0B854' stroke-opacity='0.10' stroke-width='0.7'/><circle cx='28' cy='62' r='12' fill='none' stroke='%23E0B854' stroke-opacity='0.10' stroke-width='0.7'/><circle cx='62' cy='62' r='12' fill='none' stroke='%23E0B854' stroke-opacity='0.10' stroke-width='0.7'/><circle cx='45' cy='45' r='2' fill='%238B2845' fill-opacity='0.18'/></svg>");
+}
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background-image: radial-gradient(circle at 12% 18%, rgba(37,109,155,0.04) 0%, transparent 25%),
+    radial-gradient(circle at 88% 82%, rgba(139,40,69,0.05) 0%, transparent 25%);
+}
+body::after {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+  background: radial-gradient(ellipse at top left, rgba(139,40,69,0.05) 0%, transparent 50%),
+    radial-gradient(ellipse at bottom right, rgba(224,184,84,0.04) 0%, transparent 50%);
+}
+.az-top { height: 8px; background: repeating-linear-gradient(90deg, var(--blue-main) 0,var(--blue-main) 30px, var(--white) 30px,var(--white) 33px, var(--gold) 33px,var(--gold) 36px, var(--white) 36px,var(--white) 40px); }
+#app {
+  width: 100%; max-width: 480px; margin: 0 auto;
+  background: var(--cream); min-height: 100vh; padding-bottom: 72px;
+  position: relative; z-index: 1;
+}
+/* ─── TOP BAR ─── */
+.topbar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 16px 10px;
+  padding-top: calc(12px + env(safe-area-inset-top, 0px));
+  background: linear-gradient(135deg, var(--cream-light) 0%, rgba(224,184,84,0.06) 100%);
+  color: var(--blue-deep); border-bottom: 1.5px solid rgba(26,60,94,0.08);
+}
+.topbar .brand {
+  font-family: 'ZCOOL KuaiLe', 'Fredoka', 'PingFang SC', sans-serif;
+  font-size: 22px; font-weight: 700; white-space: nowrap;
+  background: linear-gradient(135deg, var(--blue-deep) 0%, var(--logo-color) 60%, var(--gold-dark) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; letter-spacing: 0.5px;
+}
+.topbar .page-title {
+  font-family: var(--font-display);
+  font-size: 17px; font-weight: 600; color: var(--blue-deep);
+  flex: 1; text-align: center;
+}
+.topbar .icon-btn {
+  background: var(--blue-light); border: none;
+  color: var(--blue-main); width: 36px; height: 36px;
+  border-radius: 50%; font-size: 16px; cursor: pointer;
+  flex-shrink: 0; display: flex; align-items: center; justify-content: center;
+}
+.topbar .icon-btn:active { transform: scale(0.92); }
+/* ─── PAGES ─── */
+.page { display: none; }
+.page.active { display: block; }
+/* ─── BOTTOM NAV ─── */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 480px;
+  background: var(--white); display: flex;
+  border-top: 1px solid #e8e3db;
+  box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+  z-index: 50; padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.bottom-nav button {
+  flex: 1; border: none; background: transparent;
+  padding: 10px 0 8px; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  color: var(--text-muted); font-family: var(--font-ui);
+  transition: color .15s;
+}
+.bottom-nav button .tab-icon { font-size: 22px; line-height: 1; }
+.bottom-nav button .tab-label { font-size: 11px; font-weight: 500; }
+.bottom-nav button.active { color: var(--blue-main); }
+.bottom-nav button.active .tab-icon { transform: scale(1.1); }
+/* ─── HOMEPAGE ─── */
+.hero-card {
+  margin: 16px; padding: 22px 20px 18px;
+  background: linear-gradient(135deg, var(--cream-light) 0%, var(--white) 60%, rgba(224,184,84,0.08) 100%);
+  border: 1.5px solid var(--gold); border-radius: var(--radius-md);
+  position: relative; box-shadow: var(--shadow-sm); overflow: hidden;
+}
+.hero-card::before { content: '\201C'; position: absolute; top: -10px; left: 8px; font-size: 60px; color: var(--gold); font-family: var(--font-display); line-height: 1; opacity: .5; }
+.hero-card::after { content: '\201D'; position: absolute; bottom: -20px; right: 12px; font-size: 60px; color: var(--gold); font-family: var(--font-display); line-height: 1; opacity: .5; }
+.hero-card h1 {
+  font-family: var(--font-display); font-size: 22px; font-weight: 600;
+  color: var(--blue-deep); margin-bottom: 6px;
+}
+.hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+.hero-card .hero-stats {
+  display: flex; gap: 24px; margin-top: 14px; flex-wrap: wrap;
+  position: relative; z-index: 1;
+}
+.hero-card .stat-num {
+  font-family: var(--font-display); font-size: 24px; font-weight: 700;
+  color: var(--gold-dark); line-height: 1.1;
+}
+.hero-card .stat-label { font-size: 11px; color: var(--text-muted); }
+.section-title {
+  font-family: var(--font-display); font-size: 17px; font-weight: 600;
+  color: var(--blue-deep); margin: 0 16px 10px; display: flex; align-items: center; gap: 8px;
+}
+/* ─── TRAP CARDS ─── */
+.trap-grid { margin: 0 16px 18px; display: flex; flex-direction: column; gap: 10px; }
+.trap-card {
+  background: var(--white); border-radius: 14px; padding: 14px 14px;
+  border-left: 3px solid var(--gold);
+  box-shadow: 0 1px 4px rgba(26,60,94,0.06);
+  transition: transform .15s;
+}
+.trap-card:active { transform: scale(0.98); }
+.trap-card .trap-word-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 6px;
+}
+.trap-card .trap-word-text {
+  font-family: var(--font-display); font-size: 22px; font-weight: 700;
+  color: var(--blue-deep);
+}
+.trap-card .audio-btn-big {
+  width: 40px; height: 40px; border-radius: 50%; border: none;
+  background: var(--green-ok); color: white;
+  font-size: 18px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 2px 6px rgba(46,125,50,0.25);
+  transition: transform 0.15s;
+}
+.trap-card .audio-btn-big:active { transform: scale(0.92); }
+.trap-card .trap-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.trap-card .trap-rec-btn, .trap-card .trap-play-btn {
+  width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center; font-size: 17px;
+  box-shadow: 0 2px 6px rgba(26,60,94,0.15); transition: transform 0.15s;
+}
+.trap-card .trap-rec-btn { background: #fff5f0; color: #c62828; }
+.trap-card .trap-rec-btn:active { transform: scale(0.92); }
+.trap-card .trap-rec-btn.recording { background: #c62828; color: #fff; animation: blink .8s infinite; }
+.trap-card .trap-play-btn { background: var(--blue-light); color: var(--blue-main); }
+.trap-card .trap-play-btn:active { transform: scale(0.92); }
+.trap-card .trap-play-btn:disabled { background: #ece8e0; color: #b3a394; box-shadow: none; cursor: not-allowed; }
+.trap-card .trap-rec-status { font-size: 11px; color: var(--green-ok); margin-top: 4px; display: inline-block; }
+.trap-card .trap-meaning { font-size: 13px; color: var(--text-secondary); margin-bottom: 8px; }
+.trap-card .trap-compare {
+  display: flex; align-items: center; gap: 8px; margin-bottom: 6px;
+  padding: 6px 10px; background: #FFF8F0; border-radius: var(--radius-sm); flex-wrap: wrap;
+}
+.trap-card .trap-wrong { font-size: 13px; color: var(--red); display: flex; align-items: center; gap: 4px; }
+.trap-card .trap-correct { font-size: 13px; color: var(--green-ok); font-weight: 500; display: flex; align-items: center; gap: 4px; }
+.trap-card .trap-arrow { color: var(--text-muted); font-size: 16px; }
+.trap-card .trap-tip {
+  font-size: 12px; color: var(--text-secondary);
+  background: var(--blue-light); padding: 6px 10px; border-radius: var(--radius-sm); line-height: 1.5; margin-top: 4px;
+}
+.trap-card .trap-example {
+  margin-top: 8px; padding: 10px 12px;
+  background: var(--cream-light); border-radius: var(--radius-sm);
+  border: 1px dashed #ddd5cb;
+}
+.trap-card .ex-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px; }
+.trap-card .ex-label { font-size: 11px; font-weight: 600; color: var(--blue-main); letter-spacing: 1px; text-transform: uppercase; }
+.trap-card .audio-btn-ex {
+  padding: 5px 12px; border-radius: 30px;
+  background: var(--gold); color: var(--blue-deep); border: none;
+  font-size: 11px; font-weight: 600; cursor: pointer; font-family: var(--font-ui);
+  box-shadow: 0 2px 0 var(--gold-dark); transition: transform .15s;
+}
+.trap-card .audio-btn-ex:active { transform: translateY(2px); box-shadow: none; }
+.trap-card .ex-pt { font-family: var(--font-display); font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; line-height: 1.4; }
+.trap-card .ex-zh { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
+/* ─── CATEGORY FILTERS ─── */
+.cat-filters {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin: 0 16px 14px;
+}
+.cat-filters .cat-filter {
+  padding: 6px 12px; border-radius: 30px; font-size: 11px; font-weight: 600;
+  border: 1.5px solid #d0c8be; background: var(--white);
+  color: var(--text-secondary); cursor: pointer; font-family: var(--font-ui);
+}
+.cat-filters .cat-filter:hover { border-color: var(--blue-mid); color: var(--blue-main); }
+.cat-filters .cat-filter.active { background: var(--blue-main); color: var(--white); border-color: var(--blue-main); box-shadow: 0 2px 0 var(--blue-deep); }
+/* ─── FOLLOW-ALONG PAGE ─── */
+.read-header {
+  display: flex; justify-content: space-between; align-items: center;
+  margin: 0 16px 14px; flex-wrap: wrap; gap: 8px;
+}
+.read-header h2 { font-family: var(--font-display); font-size: 20px; font-weight: 600; color: var(--blue-deep); }
+.read-header .badge {
+  background: var(--blue-light); color: var(--blue-main); font-size: 12px;
+  font-weight: 600; padding: 4px 12px; border-radius: 30px;
+}
+.controls {
+  margin: 0 16px 12px; padding: 12px 14px;
+  background: var(--cream-light); border-radius: var(--radius-md);
+  display: flex; flex-wrap: wrap; gap: 8px; align-items: center;
+}
+.controls label { font-size: 12px; font-weight: 500; color: var(--text-secondary); }
+.controls select {
+  flex: 1; min-width: 80px;
+  background: var(--white); border: 1.5px solid #e0d8cf;
+  border-radius: 30px; padding: 5px 12px; font-size: 12px;
+  color: var(--text-primary); outline: none; cursor: pointer; font-family: var(--font-ui);
+}
+.controls .speed-group { display: flex; align-items: center; gap: 6px; }
+.controls .speed-group input[type=range] { width: 80px; accent-color: var(--blue-main); cursor: pointer; }
+.controls .speed-group .speed-val { font-size: 13px; font-weight: 600; color: var(--blue-deep); min-width: 30px; text-align: center; }
+.top-actions {
+  display: flex; gap: 6px; flex-wrap: wrap;
+  margin: 0 16px 12px;
+}
+.top-actions button {
+  border: none; border-radius: 30px; padding: 7px 14px;
+  font-size: 12px; font-weight: 600; cursor: pointer;
+  font-family: var(--font-ui);
+  box-shadow: 0 2px 0 rgba(0,0,0,0.1); transition: transform .15s;
+}
+.top-actions button:active { transform: translateY(2px); box-shadow: none; }
+.btn-toggle { background: var(--blue-main); color: var(--white); }
+.btn-toggle.unmask { background: var(--green-ok); }
+.btn-show { background: var(--blue-light); color: var(--blue-main); }
+.btn-hide { background: #e8e3db; color: var(--text-secondary); }
+.article-tabs {
+  display: flex; flex-wrap: wrap; gap: 6px;
+  margin: 0 16px 12px;
+}
+.article-tabs button {
+  flex: 0 0 calc(20% - 5px); min-width: 0;
+  padding: 7px 4px; border: 1.5px solid #dce3ea;
+  border-radius: 30px; background: var(--white);
+  font-size: 11px; font-weight: 600; color: var(--text-secondary);
+  cursor: pointer; font-family: var(--font-ui);
+  text-align: center; line-height: 1.3;
+}
+.article-tabs button:active { transform: scale(0.96); }
+.article-tabs button.active { background: var(--blue-main); color: var(--white); border-color: var(--blue-main); box-shadow: 0 2px 0 var(--blue-deep); }
+.play-controls {
+  display: flex; gap: 8px;
+  margin: 0 16px 12px; flex-wrap: wrap; justify-content: center;
+}
+.play-controls button {
+  border: none; border-radius: 50px; padding: 11px 20px;
+  font-size: 14px; font-weight: 600; cursor: pointer; font-family: var(--font-ui);
+  transition: transform .15s; flex: 1; min-width: 70px;
+  display: flex; align-items: center; justify-content: center; gap: 4px;
+}
+.play-controls button:active { transform: scale(0.95); }
+.btn-play { background: var(--blue-main); color: var(--white); box-shadow: 0 3px 0 var(--blue-deep); }
+.btn-play.playing { background: var(--logo-color); box-shadow: 0 3px 0 #6B1D35; }
+.btn-pause { background: #e8e3db; color: var(--text-secondary); }
+.btn-pause:disabled { opacity: .4; pointer-events: none; }
+.btn-resume { background: var(--green-ok); color: var(--white); box-shadow: 0 3px 0 #1B5E20; }
+.btn-resume:disabled { opacity: .4; pointer-events: none; }
+.progress-wrap {
+  background: #ede8e2; border-radius: 30px; height: 6px;
+  margin: 0 16px 12px; overflow: hidden; cursor: pointer;
+}
+.progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--blue-main), var(--blue-mid)); border-radius: 30px; transition: width .2s; }
+.article-content {
+  background: var(--cream-light); border-radius: var(--radius-md);
+  padding: 18px 16px; border: 1px solid #f0ebe5;
+  min-height: 280px; max-height: 440px; overflow-y: auto;
+  line-height: 2; font-size: 16px; color: var(--text-primary);
+  margin: 0 16px;
+}
+.article-content::-webkit-scrollbar { width: 5px; }
+.article-content::-webkit-scrollbar-thumb { background: #c5b8a8; border-radius: 10px; }
+.article-content .sentence {
+  margin-bottom: 2px; padding: 4px 8px; border-radius: 6px;
+  transition: background .15s; display: flex; align-items: center; flex-wrap: wrap; gap: 4px;
+}
+.article-content .sentence:hover { background: #eef4fa; }
+.article-content .sentence.highlight {
+  background: rgba(224,184,84,0.12); padding: 6px 10px;
+  border-left: 3px solid var(--gold); border-radius: 6px;
+}
+.article-content .sentence .label { font-size: 11px; color: #b3a394; font-weight: 600; margin-right: 2px; }
+.article-content .sentence .text { color: var(--text-primary); }
+.article-content .sentence .text.zh-text { color: var(--text-secondary); cursor: default; font-size: 14px; }
+.article-content .sentence .text.pt-text { cursor: pointer; transition: .2s; padding: 2px 4px; border-radius: 4px; }
+.article-content .sentence .text.pt-text:hover { text-decoration: underline; color: var(--blue-deep); }
+.article-content .sentence .text.masked { background: var(--blue-deep); color: var(--blue-deep) !important; border-radius: 4px; padding: 2px 8px; cursor: pointer; user-select: none; }
+.article-content .sentence .play-icon {
+  font-size: 12px; color: #8f7a66; opacity: .4; transition: opacity .2s; cursor: pointer;
+}
+.article-content .sentence .play-icon:hover { opacity: 1; }
+.article-content .sentence .record-btn {
+  font-size: 16px; background: none; border: none; cursor: pointer;
+  padding: 6px 10px; border-radius: 30px; transition: .15s; color: var(--text-secondary);
+  min-width: 36px; min-height: 36px; display: inline-flex; align-items: center; justify-content: center;
+}
+.article-content .sentence .record-btn:hover { background: #e8e4de; }
+.article-content .sentence .record-btn.recording { color: var(--red); animation: blink .8s infinite; }
+.article-content .sentence .playback-btn {
+  font-size: 16px; background: none; border: none; cursor: pointer;
+  padding: 6px 10px; border-radius: 30px; transition: .15s; color: #2980b9;
+  min-width: 36px; min-height: 36px; display: inline-flex; align-items: center; justify-content: center;
+}
+.article-content .sentence .playback-btn:hover { background: #e8f0f8; }
+.article-content .sentence .playback-btn:disabled { opacity: .3; cursor: not-allowed; }
+.article-content .sentence .record-status { font-size: 11px; color: #8f7a66; }
+@keyframes blink { 0%,100% { opacity: 1; } 50% { opacity: .3; } }
+.status-bar {
+  display: flex; justify-content: space-between; align-items: center;
+  margin: 10px 16px 0; padding: 8px 14px;
+  background: var(--cream-light); border-radius: 30px; flex-wrap: wrap; gap: 6px; font-size: 12px;
+}
+.status-text { color: var(--text-secondary); flex: 1; }
+.status-position { color: var(--text-muted); font-weight: 500; }
+/* ─── PROGRESS PAGE ─── */
+.progress-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 10px; margin: 0 16px 16px;
+}
+.prog-card {
+  background: var(--white); border-radius: 14px; padding: 14px;
+  box-shadow: 0 1px 4px rgba(26,60,94,0.06); text-align: center;
+}
+.prog-num { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: var(--blue-deep); line-height: 1.2; }
+.prog-label { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+.prog-icon { font-size: 26px; margin-bottom: 6px; }
+/* ─── TOAST ─── */
+.toast {
+  position: fixed; bottom: 88px; left: 50%; transform: translateX(-50%);
+  background: var(--blue-deep); color: var(--white);
+  padding: 10px 20px; border-radius: 40px; font-size: 13px;
+  font-weight: 500; opacity: 0; transition: .25s;
+  pointer-events: none; z-index: 60;
+}
+.toast.show { opacity: 1; }
+/* ─── RESPONSIVE ─── */
+@media (max-width: 360px) {
+  .article-tabs button { flex: 0 0 calc(33.33% - 5px); font-size: 10px; padding: 5px 3px; }
+  .topbar { padding: 10px 12px; }
+  .hero-card { margin: 12px; padding: 16px; }
+  .trap-grid { margin: 0 12px 14px; }
+}
+@media (min-width: 481px) {
+  #app { border-left: 1px solid #e8e3db; border-right: 1px solid #e8e3db; }
+}
+</style>
+</head>
+<body>
+
+<div class="az-top"></div>
+<div id="app">
+
+<!-- ═══ TOP BAR (dynamic) ═══ -->
+<div id="topbar" class="topbar">
+  <span class="brand">U记欧葡</span>
+  <span class="page-title" id="pageTitle">跟读训练</span>
+  <button class="icon-btn" id="topbarRightBtn">📊</button>
+</div>
+
+<div id="pageContent">
+
+  <!-- ═══ PAGE: HOME ═══ -->
+  <div id="page-home" class="page active">
+    <div class="hero-card">
+      <h1>欧葡发音跟读练习</h1>
+      <p>跟读是最有效的语言训练方式。用耳朵学发音，用嘴巴记单词。</p>
+      <div class="hero-stats">
+        <div><span class="stat-num">20</span><br><span class="stat-label">篇跟读文章</span></div>
+        <div><span class="stat-num">100</span><br><span class="stat-label">个发音陷阱</span></div>
+        <div><span class="stat-num">🇵🇹</span><br><span class="stat-label">欧葡 TTS</span></div>
+      </div>
+    </div>
+
+    <div class="section-title">🔊 今天发音陷阱</div>
+    <div id="homeTraps" class="trap-grid"></div>
+
+    <div class="section-title">📖 今天跟读推荐</div>
+    <div id="homeReadRecommend" class="trap-card" style="margin:0 16px 20px;cursor:pointer;">
+      <div style="display:flex;align-items:center;gap:10px">
+        <span style="font-size:26px" id="homeRecIcon">🛁</span>
+        <div>
+          <div style="font-family:var(--font-display);font-size:17px;font-weight:600;color:var(--blue-deep)" id="homeRecTitle">Casa de banho</div>
+          <div style="font-size:12px;color:var(--text-muted)">点击进入跟读 →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ PAGE: TRAP ═══ -->
+  <div id="page-trap" class="page">
+    <div style="padding:0 16px 4px;">
+      <h2 style="font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--blue-deep);margin-bottom:2px;">🔊 欧葡发音陷阱</h2>
+      <p style="font-size:13px;color:var(--text-muted);">100 个欧葡学习者最易读错的字</p>
+      <p style="font-size:12px;color:var(--text-muted);margin-top:4px;" id="trapProgress">显示 100 / 100 个单词</p>
+    </div>
+    <div id="trapFilters" class="cat-filters"></div>
+    <div id="trapGrid" class="trap-grid"></div>
+  </div>
+
+  <!-- ═══ PAGE: READ ═══ -->
+  <div id="page-read" class="page">
+    <div class="read-header">
+      <h2>📖 跟读文章</h2>
+      <span class="badge" id="totalBadge">20 篇文章</span>
+    </div>
+    <div class="controls">
+      <label>🎙️ 语音</label>
+      <select id="voiceSelect"><option value="">🌐 浏览器默认</option></select>
+      <div class="speed-group">
+        <label>🐢</label>
+        <input type="range" id="speedSlider" min="0.4" max="1.8" step="0.05" value="0.85">
+        <span class="speed-val" id="speedDisplay">0.85</span>
+        <label>🐇</label>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="btn-toggle" id="toggleMaskBtn">🔒 遮挡双语</button>
+      <button class="btn-show" id="showAllBtn">🔓 全部显示</button>
+      <button class="btn-hide" id="hideAllBtn">🔒 全部遮挡</button>
+    </div>
+    <div style="margin:-4px 16px 10px;font-size:11px;color:var(--text-muted);" id="maskHint">💡 遮挡后点击句子即可显示内容，再点一次隐藏</div>
+    <div class="article-tabs" id="articleTabs"></div>
+    <div class="play-controls">
+      <button class="btn-play" id="playBtn">▶️ 播放全部</button>
+      <button class="btn-pause" id="pauseBtn" disabled>⏸️ 暂停</button>
+      <button class="btn-resume" id="resumeBtn" disabled>▶️ 继续</button>
+    </div>
+    <div class="progress-wrap" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="article-content" id="articleContent"><div style="text-align:center;padding:50px 20px;color:#8f7a66;font-size:16px;">⏳ 加载中...</div></div>
+    <div class="status-bar">
+      <span class="status-text" id="statusText">🔊 点击葡语句子播放，或按「播放全部」</span>
+      <span class="status-position" id="statusPosition">句子 0 / 0</span>
+    </div>
+  </div>
+
+  <!-- ═══ PAGE: PROGRESS ═══ -->
+  <div id="page-progress" class="page">
+    <h2 style="font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--blue-deep);margin:0 16px 14px;">📊 我的学习进度</h2>
+    <div class="progress-grid" id="progStats">
+      <div class="prog-card"><div class="prog-icon">📖</div><div class="prog-num">20</div><div class="prog-label">篇跟读文章</div></div>
+      <div class="prog-card"><div class="prog-icon">🔊</div><div class="prog-num">100</div><div class="prog-label">个发音陷阱</div></div>
+      <div class="prog-card"><div class="prog-icon">🎯</div><div class="prog-num">46</div><div class="prog-label">个练习句子</div></div>
+    </div>
+    <div class="trap-card" style="margin:0 16px;background:var(--blue-light);border-left-color:var(--blue-main)">
+      <div style="font-size:13px;font-weight:600;color:var(--blue-deep);margin-bottom:6px">💡 使用建议</div>
+      <div style="font-size:12px;color:var(--text-secondary);line-height:1.7">
+        1. 先去「发音陷阱」逐个听正确读音<br>
+        2. 再到「跟读」选一篇文章开始练习<br>
+        3. 开启遮挡模式，尝试自己先读再核对<br>
+        4. 用录音功能录下自己的发音回听对比
+      </div>
+    </div>
+  </div>
+
+</div><!-- /pageContent -->
+
+<!-- ═══ BOTTOM NAV ═══ -->
+<nav class="bottom-nav">
+  <button class="active" data-page="home"><span class="tab-icon">🏠</span><span class="tab-label">主页</span></button>
+  <button data-page="trap"><span class="tab-icon">🔊</span><span class="tab-label">发音</span></button>
+  <button data-page="read"><span class="tab-icon">📖</span><span class="tab-label">跟读</span></button>
+  <button data-page="progress"><span class="tab-icon">📊</span><span class="tab-label">进度</span></button>
+</nav>
+
+</div><!-- /app -->
+
+<div class="toast" id="toast"></div>
+
+<!-- 预先建立 audio element（iOS Safari 对隐藏 DOM element 的 data URI 播放更穩定）-->
+<audio id="azureAudio" preload="auto" playsinline style="display:none"></audio>
+<script src="static-audio.js"></script>
+
+<script>
+// ============================================================
+// 0. PAGE NAVIGATION
+// ============================================================
+function switchPage(page){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+page).classList.add('active');
+  document.querySelectorAll('.bottom-nav button').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.bottom-nav button').forEach(b=>{
+    if(b.dataset.page===page) b.classList.add('active');
+  });
+  // Update topbar
+  const titles = {home:'跟读训练',trap:'发音陷阱',read:'跟读文章',progress:'学习进度'};
+  document.getElementById('pageTitle').textContent = titles[page]||'跟读训练';
+}
+
+// Bind bottom nav
+document.querySelectorAll('.bottom-nav button').forEach(btn => {
+  btn.addEventListener('click', function(){
+    switchPage(this.dataset.page);
+  });
+});
+
+// Homepage recommend card click
+document.getElementById('homeReadRecommend').addEventListener('click', function(){
+  switchPage('read');
+});
+
+// Topbar right button
+document.getElementById('topbarRightBtn').addEventListener('click', function(){
+  const current = document.querySelector('.page.active');
+  if(current && current.id === 'page-progress') { switchPage('home'); return; }
+  switchPage('progress');
+});
+
+// ============================================================
+// 1. CATEGORIES & TRAP WORDS (100 words, 10 categories)
+// ============================================================
+const CATEGORIES = [
+  {id:'nasal-ao', name:'鼻音韵母 ão/ãe', icon:'🔊'},
+  {id:'nasal-em', name:'鼻音收尾 em/en', icon:'🔊'},
+  {id:'consoante-lh', name:'特殊辅音 lh', icon:'🔊'},
+  {id:'consoante-nh', name:'特殊辅音 nh', icon:'🔊'},
+  {id:'s-final', name:'字尾 s→sh', icon:'🔊'},
+  {id:'bp-dt', name:'清浊辅音 b/p/d/t', icon:'🔊'},
+  {id:'e-final', name:'字尾 e→闭口音', icon:'🔊'},
+  {id:'r-guttural', name:'喉音 r/rr', icon:'🔊'},
+  {id:'rl-confusion', name:'R/L 混淆', icon:'🔊'},
+  {id:'j-g-c', name:'j/g→zh + 字母c', icon:'🔊'}
+];
+const ALL_WORDS = [
+  {cat:'nasal-ao', word:'pão', meaning:'面包', wrong:'抛', correct:'傍(鼻音收)', tip:'先发"a"再收圆嘴唇出鼻音，气流从鼻子走', ex_pt:'Quero um pão.', ex_zh:'我想要一个面包。'},
+  {cat:'nasal-ao', word:'mão', meaning:'手', wrong:'帽', correct:'冒(鼻尾)', tip:'ão 要收到鼻音，嘴巴闭合时气流从鼻子出', ex_pt:'Lavo as mãos.', ex_zh:'我洗手。'},
+  {cat:'nasal-ao', word:'não', meaning:'不', wrong:'闹', correct:'囊(鼻音收)', tip:'千万别读成"闹"——ão 必须有鼻音收尾', ex_pt:'Não sei.', ex_zh:'我不知道。'},
+  {cat:'nasal-ao', word:'cão', meaning:'狗', wrong:'靠', correct:'靠(鼻音)', tip:'ão 的鼻音从口到鼻要通畅', ex_pt:'O cão ladra.', ex_zh:'狗在叫。'},
+  {cat:'nasal-ao', word:'coração', meaning:'心脏', wrong:'考拉松', correct:'古拉桑(鼻音)', tip:'-ção 重读，ão 要完整鼻音化', ex_pt:'O coração bate.', ex_zh:'心脏在跳动。'},
+  {cat:'nasal-ao', word:'camarão', meaning:'虾', wrong:'卡马龙', correct:'卡马朗(鼻音)', tip:'-rão 的ão 也是鼻音', ex_pt:'Gosto de camarão.', ex_zh:'我喜欢虾。'},
+  {cat:'nasal-ao', word:'limão', meaning:'柠檬', wrong:'李猫', correct:'李芒(鼻音)', tip:'mão 中的ão 要发出鼻音', ex_pt:'O limão é ácido.', ex_zh:'柠檬是酸的。'},
+  {cat:'nasal-ao', word:'mãe', meaning:'母亲', wrong:'买', correct:'买因(鼻音)', tip:'ãe 不同于 ão，嘴横向展开发鼻音' ,ex_pt:'A minha mãe.', ex_zh:'我的妈妈。'},
+  {cat:'nasal-ao', word:'pães', meaning:'面包(复数)', wrong:'派斯', correct:'派因什', tip:'ães 三重音！ã+鼻+e+s=sh', ex_pt:'Compro pães.', ex_zh:'我买面包。'},
+  {cat:'nasal-ao', word:'cães', meaning:'狗(复数)', wrong:'开斯', correct:'开因什', tip:'ães 在欧葡读鼻音+sh', ex_pt:'Os cães correm.', ex_zh:'狗在跑。'},
+  {cat:'nasal-em', word:'bem', meaning:'很/ well', wrong:'办', correct:'班因(鼻音)', tip:'em 是鼻音/e/收/m/，不是"本"', ex_pt:'Estou bem.', ex_zh:'我很好。'},
+  {cat:'nasal-em', word:'também', meaning:'也', wrong:'塔办', correct:'塔班因', tip:'-bém 是鼻音，重音在最后', ex_pt:'Eu também.', ex_zh:'我也是。'},
+  {cat:'nasal-em', word:'quem', meaning:'谁', wrong:'肯', correct:'铿(鼻音)', tip:'quem 的 em 是鼻音', ex_pt:'Quem é ele?', ex_zh:'他是谁？'},
+  {cat:'nasal-em', word:'cem', meaning:'一百', wrong:'森', correct:'森(别卷舌)', tip:'欧葡cem的em接近鼻音，不是"森"但也不卷舌', ex_pt:'Cem anos.', ex_zh:'一百年。'},
+  {cat:'nasal-em', word:'sem', meaning:'没有', wrong:'森', correct:'森(鼻音)', tip:'sem 和 cem 发音几乎一样——上下文判断', ex_pt:'Sem açúcar.', ex_zh:'没有糖。'},
+  {cat:'nasal-em', word:'ontem', meaning:'昨天', wrong:'呕特姆', correct:'呕特因(鼻)', tip:'-tem 的 em 是鼻音/ẽ/，像"特因"', ex_pt:'Ontem choveu.', ex_zh:'昨天下雨了。'},
+  {cat:'nasal-em', word:'homem', meaning:'男人', wrong:'厚门', correct:'奥门因', tip:'homem读"奥门因"——em是鼻音', ex_pt:'O homem alto.', ex_zh:'那个高个子男人。'},
+  {cat:'nasal-em', word:'ordem', meaning:'命令/顺序', wrong:'欧灯', correct:'奥尔灯因', tip:'-dem 的 em 也是鼻音', ex_pt:'Por ordem.', ex_zh:'按顺序。'},
+  {cat:'nasal-em', word:'viagem', meaning:'旅行', wrong:'维阿根', correct:'维阿珍因', tip:'-gem 在欧葡发 /ʒɐ̃j̃/ 鼻音+zh音', ex_pt:'Boa viagem!', ex_zh:'旅途愉快！'},
+  {cat:'nasal-em', word:'jovem', meaning:'年轻的', wrong:'柔文', correct:'绕文因', tip:'j→ʒ , -vem 的 em 鼻音', ex_pt:'Ele é jovem.', ex_zh:'他很年轻。'},
+  {cat:'consoante-lh', word:'trabalho', meaning:'工作', wrong:'特拉巴柳', correct:'特拉巴溜', tip:'lh 像"溜"但舌头贴上颚', ex_pt:'Tenho trabalho.', ex_zh:'我有工作。'},
+  {cat:'consoante-lh', word:'filho', meaning:'儿子', wrong:'飞奥', correct:'飞溜', tip:'lh 不是 l+h，是一个音 /ʎ/', ex_pt:'Meu filho.', ex_zh:'我的儿子。'},
+  {cat:'consoante-lh', word:'velho', meaning:'老的', wrong:'外奥', correct:'外溜', tip:'lh /ʎ/ 舌抵上颚发/l+i/短音', ex_pt:'Um homem velho.', ex_zh:'一位老人。'},
+  {cat:'consoante-lh', word:'mulher', meaning:'女人', wrong:'穆勒', correct:'穆列', tip:'lh+r=列リ？实际是/ʎ/后卷舌', ex_pt:'A mulher linda.', ex_zh:'那位美丽的女人。'},
+  {cat:'consoante-lh', word:'família', meaning:'家庭', wrong:'法米利亚', correct:'法米溜雅', tip:'li 不是"里亚"，是"溜"+/a/', ex_pt:'A minha família.', ex_zh:'我的家庭。'},
+  {cat:'consoante-lh', word:'olho', meaning:'眼睛', wrong:'奥奥', correct:'奥溜', tip:'lh = 舌抵上颚出气', ex_pt:'Olho azul.', ex_zh:'蓝色的眼睛。'},
+  {cat:'consoante-lh', word:'alho', meaning:'大蒜', wrong:'阿奥', correct:'阿溜', tip:'alho不是"阿奥"，"阿溜"才对', ex_pt:'Alho na sopa.', ex_zh:'汤里的大蒜。'},
+  {cat:'consoante-lh', word:'melhor', meaning:'更好', wrong:'美奥', correct:'美溜(喉r)', tip:'lh + r = /ʎ/ + /ʁ/', ex_pt:'É melhor assim.', ex_zh:'这样更好。'},
+  {cat:'consoante-lh', word:'conselho', meaning:'建议', wrong:'空赛奥', correct:'空塞溜', tip:'selho 还是lh音', ex_pt:'Bom conselho.', ex_zh:'很建议。'},
+  {cat:'consoante-lh', word:'falha', meaning:'错误/失误', wrong:'法拉', correct:'法溜呀', tip:'falha的lh同样是舌抵上鄂', ex_pt:'Sem falhas.', ex_zh:'没有失误。'},
+  {cat:'consoante-nh', word:'vinho', meaning:'酒', wrong:'维尼奥', correct:'维纽', tip:'nh= /ɲ/ 鼻音，嘴形微笑，像西语ñ', ex_pt:'Vinho tinto.', ex_zh:'红酒。'},
+  {cat:'consoante-nh', word:'sonho', meaning:'梦', wrong:'索尼奥', correct:'索纽', tip:'不是"松尼奥"，"索纽"快读', ex_pt:'Bom sonho!', ex_zh:'很梦！'},
+  {cat:'consoante-nh', word:'banho', meaning:'洗澡', wrong:'巴尼奥', correct:'巴纽', tip:'nh 像"妞"但鼻音', ex_pt:'Tomar banho.', ex_zh:'洗澡。'},
+  {cat:'consoante-nh', word:'manhã', meaning:'早上', wrong:'马尼亚', correct:'马纽(鼻母)', tip:'nh+ã 是鼻音元音，鼻腔共鸣', ex_pt:'Bom dia, manhã.', ex_zh:'早安。'},
+  {cat:'consoante-nh', word:'montanha', meaning:'山', wrong:'蒙塔尼亚', correct:'蒙塔纽(鼻)', tip:'nha 发音像"尼呀"但鼻音化', ex_pt:'A montanha alta.', ex_zh:'高山。'},
+  {cat:'consoante-nh', word:'caminho', meaning:'路', wrong:'卡米尼奥', correct:'卡米纽', tip:'minho 发 /miɲu/', ex_pt:'Este caminho.', ex_zh:'这条路。'},
+  {cat:'consoante-nh', word:'linha', meaning:'线', wrong:'李尼亚', correct:'李纽', tip:'nh 鼻音+牙关紧', ex_pt:'Linha reta.', ex_zh:'直线。'},
+  {cat:'consoante-nh', word:'ganhar', meaning:'赢/得到', wrong:'嘎尼亚', correct:'嗄纽(喉r)', tip:'nhar = /ɲar/ 然后r喉咙音', ex_pt:'Vou ganhar!', ex_zh:'我会赢！'},
+  {cat:'consoante-nh', word:'vizinho', meaning:'邻居', wrong:'维基尼奥', correct:'维基纽', tip:'-inho 是葡语"小"的意思，nh 一定要鼻音', ex_pt:'Meu vizinho.', ex_zh:'我的邻居。'},
+  {cat:'consoante-nh', word:'companhia', meaning:'公司/陪伴', wrong:'康帕尼亚', correct:'康帕纽呀', tip:'nhia= /ɲiɐ/ 鼻音', ex_pt:'Boa companhia.', ex_zh:'很陪伴。'},
+  {cat:'s-final', word:'mais', meaning:'更多', wrong:'迈斯', correct:'迈什', tip:'s在字尾必读/ʃ/（sh），不要读/s/', ex_pt:'Quero mais.', ex_zh:'我想要更多。'},
+  {cat:'s-final', word:'depois', meaning:'之后', wrong:'德波斯', correct:'德波什', tip:'-ois 的s也是sh音', ex_pt:'Depois falo.', ex_zh:'之后再说。'},
+  {cat:'s-final', word:'português', meaning:'葡萄牙语', wrong:'波图盖斯', correct:'波图给什', tip:'-ês 的s读/ʃ/，这是欧葡标志', ex_pt:'Falo português.', ex_zh:'我说葡语。'},
+  {cat:'s-final', word:'inglês', meaning:'英语', wrong:'因格来斯', correct:'因格来什', tip:'-glês 的s字尾sh', ex_pt:'Fala inglês?', ex_zh:'你说英语吗？'},
+  {cat:'s-final', word:'dois', meaning:'二', wrong:'多伊斯', correct:'多伊什', tip:'dois 读"多依什"', ex_pt:'Dois cafés.', ex_zh:'两杯咖啡。'},
+  {cat:'s-final', word:'três', meaning:'三', wrong:'特雷斯', correct:'特莱什', tip:'três 的s也是sh', ex_pt:'Três pessoas.', ex_zh:'三个人。'},
+  {cat:'s-final', word:'mês', meaning:'月份', wrong:'梅斯', correct:'梅什', tip:'mês 类似"梅什"，不是"梅斯"', ex_pt:'Este mês.', ex_zh:'这个月。'},
+  {cat:'s-final', word:'país', meaning:'国家', wrong:'帕伊斯', correct:'帕伊什', tip:'país = pa-ís，s字尾读sh', ex_pt:'Que país?', ex_zh:'哪个国家？'},
+  {cat:'s-final', word:'arroz', meaning:'米饭', wrong:'阿若斯', correct:'阿若什', tip:'z在字尾在欧葡也读/ʃ/！', ex_pt:'Arroz com frango.', ex_zh:'鸡肉饭。'},
+  {cat:'s-final', word:'vez', meaning:'次/回', wrong:'外斯', correct:'外什', tip:'vez的z同样读/ʃ/', ex_pt:'Outra vez.', ex_zh:'再一次。'},
+  {cat:'bp-dt', word:'bala', meaning:'子弹', wrong:'帕拉', correct:'把拉', tip:'b是浊音（声带振），不是p', ex_pt:'Uma bala.', ex_zh:'一颗子弹。'},
+  {cat:'bp-dt', word:'pala', meaning:'帽檐/遮篷', wrong:'帕拉', correct:'帕拉', tip:'p是清音（声带不振），不要混同 b', ex_pt:'A pala do boné.', ex_zh:'��子的帽檐。'},
+  {cat:'bp-dt', word:'boa', meaning:'很的(f)', wrong:'波阿', correct:'波啊', tip:'b是浊音/波/声带振，不要读成"poa"', ex_pt:'Boa ideia!', ex_zh:'很主意！'},
+  {cat:'bp-dt', word:'pato', meaning:'鸭子', wrong:'八图', correct:'帕图', tip:'p是清音，不是b', ex_pt:'O pato nada.', ex_zh:'鸭子在游泳。'},
+  {cat:'bp-dt', word:'dia', meaning:'日/天', wrong:'迪亚', correct:'迪亚(soft d)', tip:'欧葡d不读英文硬d，舌放齿间', ex_pt:'Bom dia.', ex_zh:'早安。'},
+  {cat:'bp-dt', word:'tia', meaning:'阿姨', wrong:'迪亚', correct:'踢呀', tip:'t是清音，和d不同——t要冲气', ex_pt:'A minha tia.', ex_zh:'我的阿姨。'},
+  {cat:'bp-dt', word:'gato', meaning:'猫', wrong:'卡图', correct:'嘎图', tip:'g是浊音（声带振），不是k', ex_pt:'O gato preto.', ex_zh:'黑色的猫。'},
+  {cat:'bp-dt', word:'casa', meaning:'房子/家', wrong:'卡萨', correct:'卡扎', tip:'s在元音间读/z/，不是/s/', ex_pt:'Em casa.', ex_zh:'在家。'},
+  {cat:'bp-dt', word:'bota', meaning:'靴子', wrong:'波塔', correct:'波他', tip:'b是浊音，t是清音——掌握两者区别', ex_pt:'Botas pretas.', ex_zh:'黑靴子。'},
+  {cat:'bp-dt', word:'porta', meaning:'门', wrong:'波大', correct:'波她', tip:'t为清音，不振动声带', ex_pt:'A porta aberta.', ex_zh:'开着的门。'},
+  {cat:'e-final', word:'leite', meaning:'牛奶', wrong:'雷特', correct:'莱特(闭口)', tip:'最后的e读/ɨ/（闭口ə），不是/i/', ex_pt:'Bebo leite.', ex_zh:'我喝牛奶。'},
+  {cat:'e-final', word:'noite', meaning:'夜晚', wrong:'诺伊特', correct:'诺伊特(闭口)', tip:'-ite的e读/ɨ/不读i', ex_pt:'Boa noite!', ex_zh:'晚安！'},
+  {cat:'e-final', word:'nome', meaning:'名字', wrong:'诺米', correct:'诺么(闭口)', tip:'-me的e也是/ɨ/，嘴闭合发', ex_pt:'Qual é o nome?', ex_zh:'叫什么名字？'},
+  {cat:'e-final', word:'carne', meaning:'肉', wrong:'卡尼', correct:'卡呢(闭口)', tip:'-ne的e读/ɨ/，不用卷舌', ex_pt:'Carne de vaca.', ex_zh:'牛肉。'},
+  {cat:'e-final', word:'ponte', meaning:'桥', wrong:'邦特', correct:'邦特(闭口)', tip:'-te的e读/ɨ/闭口', ex_pt:'A ponte nova.', ex_zh:'新桥。'},
+  {cat:'e-final', word:'chocolate', meaning:'巧克力', wrong:'乔科拉提', correct:'乔科拉特(闭口)', tip:'-te结尾的e读/ɨ/不读/i/', ex_pt:'Gosto de chocolate.', ex_zh:'我喜欢巧克力。'},
+  {cat:'e-final', word:'parte', meaning:'部分', wrong:'帕提', correct:'帕特(闭口)', tip:'-te结尾e读/ɨ/，嘴收小', ex_pt:'Uma parte.', ex_zh:'一部分。'},
+  {cat:'e-final', word:'morte', meaning:'死亡', wrong:'模特', correct:'模特(闭口)', tip:'-te的e同样读/ɨ/', ex_pt:'Vida e morte.', ex_zh:'生与死。'},
+  {cat:'e-final', word:'classe', meaning:'班级/课', wrong:'克拉西', correct:'克拉塞(闭口)', tip:'-sse的e也是/ɨ/闭口', ex_pt:'Na classe.', ex_zh:'在课堂上。'},
+  {cat:'e-final', word:'passe', meaning:'通行证', wrong:'帕西', correct:'帕塞(闭口)', tip:'-sse的e同/ɨ/', ex_pt:'Passe de autocarro.', ex_zh:'公交卡。'},
+  {cat:'r-guttural', word:'caro', meaning:'贵的', wrong:'卡肉(英式r)', correct:'卡喉', tip:'r在元音间读/ʁ/（喉擦音）', ex_pt:'Muito caro.', ex_zh:'太贵了。'},
+  {cat:'r-guttural', word:'rio', meaning:'河流', wrong:'力奥', correct:'喉奥', tip:'字首r读喉音/ʁ/，不要用英文r', ex_pt:'O rio Tejo.', ex_zh:'特茹河。'},
+  {cat:'r-guttural', word:'rua', meaning:'街道', wrong:'入阿', correct:'喉阿', tip:'字首r必须震喉', ex_pt:'Na rua.', ex_zh:'在街上。'},
+  {cat:'r-guttural', word:'carro', meaning:'汽车', wrong:'卡肉', correct:'卡喉(长振)', tip:'rr是长喉音，比单r更强', ex_pt:'De carro.', ex_zh:'开车/乘车。'},
+  {cat:'r-guttural', word:'rosa', meaning:'玫瑰/粉色', wrong:'肉萨', correct:'喉奥萨', tip:'字首r=喉擦音，不是英文r', ex_pt:'Rosa vermelha.', ex_zh:'红玫瑰。'},
+  {cat:'r-guttural', word:'razão', meaning:'理由', wrong:'哈脏', correct:'喉脏', tip:'字首r=喉擦音+ão鼻音', ex_pt:'Sem razão.', ex_zh:'没有理由。'},
+  {cat:'r-guttural', word:'correr', meaning:'跑步', wrong:'科肉', correct:'科喉(长)', tip:'rr是长喉擦音', ex_pt:'Vou correr.', ex_zh:'我去跑步。'},
+  {cat:'r-guttural', word:'barriga', meaning:'肚子', wrong:'巴利嘎', correct:'巴喉嘎', tip:'rr在中间是长喉音', ex_pt:'Doer barriga.', ex_zh:'肚子疼。'},
+  {cat:'r-guttural', word:'rápido', meaning:'快的', wrong:'哈皮杜', correct:'哈皮杜', tip:'字首r要喉擦', ex_pt:'Muito rápido.', ex_zh:'很快。'},
+  {cat:'r-guttural', word:'relógio', meaning:'时钟/表', wrong:'黑烙汁乌', correct:'黑烙汁乌', tip:'re-的r喉音+ló重读+g→/ʒ/', ex_pt:'Que horas? Relógio.', ex_zh:'几点了？看表。'},
+  {cat:'rl-confusion', word:'claro', meaning:'当然/晴朗的', wrong:'科拉肉', correct:'克拉喉', tip:'cl不是"科拉"——c+l连读', ex_pt:'Claro que sim.', ex_zh:'当然可以。'},
+  {cat:'rl-confusion', word:'livro', meaning:'书', wrong:'力乌喉', correct:'力乌喉', tip:'vr不是"乌肉"，r是喉音', ex_pt:'Ler um livro.', ex_zh:'读一本书。'},
+  {cat:'rl-confusion', word:'cabelo', meaning:'头发', wrong:'卡贝漏', correct:'卡贝溜', tip:'-belo 的 l /l/ 不是 r，要分清', ex_pt:'Cabelo comprido.', ex_zh:'长头发。'},
+  {cat:'rl-confusion', word:'falar', meaning:'说', wrong:'法拉(英式r)', correct:'法拉(喉r)', tip:'-lar结尾r要喉音', ex_pt:'Falar português.', ex_zh:'说葡语。'},
+  {cat:'rl-confusion', word:'flores', meaning:'花(复数)', wrong:'夫劳斯', correct:'弗洛瑞士', tip:'fl连读 + -res的r喉音+ s读sh', ex_pt:'Que lindas flores!', ex_zh:'多美的花！'},
+  {cat:'rl-confusion', word:'Brasil', meaning:'巴西', wrong:'布拉西欧', correct:'布拉基欧', tip:'s在元音间读/z/，不是/s/', ex_pt:'Vou ao Brasil.', ex_zh:'我去巴西。'},
+  {cat:'rl-confusion', word:'bloco', meaning:'本子/街区', wrong:'布洛科', correct:'布洛科', tip:'bl不读"布洛"，bl连读避免中间元音', ex_pt:'Bloco de notas.', ex_zh:'笔记本。'},
+  {cat:'rl-confusion', word:'falso', meaning:'虚假的', wrong:'法尔索', correct:'发尔苏', tip:'l 在欧葡读/l/（不卷舌），不是r', ex_pt:'É falso.', ex_zh:'假的。'},
+  {cat:'rl-confusion', word:'azul', meaning:'蓝色', wrong:'阿入', correct:'阿粗', tip:'z在字首/元音间读/z/，不要卷舌', ex_pt:'Céu azul.', ex_zh:'蓝天。'},
+  {cat:'rl-confusion', word:'árvore', meaning:'树', wrong:'阿窝勒', correct:'阿乌喉累', tip:'rv=喉音 + re=/ʁɨ/', ex_pt:'Uma árvore verde.', ex_zh:'一棵绿色的树。'},
+  {cat:'j-g-c', word:'já', meaning:'已经', wrong:'哈', correct:'日阿', tip:'j在欧葡读/ʒ/像"日"，不是/h/', ex_pt:'Já cheguei.', ex_zh:'我已经到了。'},
+  {cat:'j-g-c', word:'jantar', meaning:'晚餐', wrong:'含塔', correct:'日an塔', tip:'j→/ʒ/ + -tar r喉音', ex_pt:'Vou jantar.', ex_zh:'我去吃晚餐。'},
+  {cat:'j-g-c', word:'jogar', meaning:'玩', wrong:'后嘎', correct:'柔嘎', tip:'jogar不是"后嘎"，"柔嘎"', ex_pt:'Jogar futebol.', ex_zh:'踢足球。'},
+  {cat:'j-g-c', word:'janela', meaning:'窗户', wrong:'哈内拉', correct:'日阿内拉', tip:'ja→/ʒa/ 不是"哈"', ex_pt:'A janela aberta.', ex_zh:'开着的窗户。'},
+  {cat:'j-g-c', word:'gente', meaning:'人们', wrong:'根特', correct:'任特', tip:'g在e/i前也读/ʒ/！像"任"', ex_pt:'Muita gente.', ex_zh:'很多人。'},
+  {cat:'j-g-c', word:'geral', meaning:'一般/总体', wrong:'盖拉欧', correct:'热拉欧', tip:'ge→/ʒ/ "热"', ex_pt:'Em geral.', ex_zh:'一般来说。'},
+  {cat:'j-g-c', word:'gelo', meaning:'冰', wrong:'盖漏', correct:'日艾溜', tip:'ge→/ʒ/ "日" + -lo 不是"漏"', ex_pt:'Água com gelo.', ex_zh:'冰水。'},
+  {cat:'j-g-c', word:'hoje', meaning:'今天', wrong:'厚姐', correct:'奥日', tip:'h不发音，je→/ʒɨ/', ex_pt:'Hoje está sol.', ex_zh:'今天有太阳。'},
+  {cat:'j-g-c', word:'ajuda', meaning:'帮助', wrong:'阿胡达', correct:'阿入达', tip:'ju→/ʒu/ "入"', ex_pt:'Preciso de ajuda.', ex_zh:'我需要帮助。'},
+  {cat:'j-g-c', word:'cedo', meaning:'早', wrong:'赛多', correct:'塞杜(soft c)', tip:'c在e前读/s/（软音），不是/k/', ex_pt:'Acordo cedo.', ex_zh:'我早起。'}
+];
+
+function renderTraps(){
+  const grid = document.getElementById('trapGrid');
+  const filterContainer = document.getElementById('trapFilters');
+  if(!grid)return;
+  filterContainer.innerHTML = `<button class="cat-filter active" data-cat="all">📋 全部 (${ALL_WORDS.length})</button>` +
+    CATEGORIES.map(c => `<button class="cat-filter" data-cat="${c.id}">${c.icon} ${c.name}</button>`).join('');
+  let selectedCat = 'all';
+  filterContainer.addEventListener('click', function(e){
+    const btn = e.target.closest('.cat-filter');
+    if(!btn)return;
+    filterContainer.querySelectorAll('.cat-filter').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedCat = btn.dataset.cat;
+    renderCards(selectedCat);
+  });
+  renderCards('all');
+}
+function renderCards(catId){
+  const grid = document.getElementById('trapGrid');
+  const words = catId === 'all' ? ALL_WORDS : ALL_WORDS.filter(w=>w.cat===catId);
+  const progressText = document.getElementById('trapProgress');
+  if(progressText) progressText.textContent = `显示 ${words.length} / ${ALL_WORDS.length} 个单词`;
+  grid.innerHTML = words.map((t,i)=>{
+    const globalIdx = ALL_WORDS.indexOf(t);
+    const trapKey = 'trap_rec_'+globalIdx;
+    const hasRec = localStorage.getItem(trapKey) !== null;
+    return `
+    <div class="trap-card">
+      <div class="trap-word-row">
+        <span class="trap-word-text">${t.word}</span>
+        <div class="trap-actions">
+          <button class="audio-btn-big" onclick="speakTrap(${globalIdx})" title="听单词发音">🔊</button>
+          <button class="trap-rec-btn" id="trapRec${globalIdx}" onclick="toggleTrapRecording(${globalIdx})" title="录我的发音">🎙️</button>
+          <button class="trap-play-btn" id="trapPlay${globalIdx}" onclick="playTrapRecording(${globalIdx})" title="听我的回放" ${!hasRec?'disabled':''}>🔁</button>
+        </div>
+      </div>
+      <div class="trap-meaning">${t.meaning} <span class="trap-rec-status" id="trapStatus${globalIdx}" style="${hasRec?'display:inline':'display:none'}">✅ 已录音</span></div>
+      <div class="trap-compare">
+        <span class="trap-wrong">❌ 常见错误：${t.wrong}</span>
+        <span class="trap-arrow">→</span>
+        <span class="trap-correct">✅ 正确发音：${t.correct}</span>
+      </div>
+      <div class="trap-tip">💡 ${t.tip}</div>
+      <div class="trap-example">
+        <div class="ex-header">
+          <span class="ex-label">📝 例句</span>
+          <button class="audio-btn-ex" onclick="speakExample(${globalIdx})" title="听例句发音">▶️ 听例句</button>
+        </div>
+        <div class="ex-pt">${t.ex_pt}</div>
+        <div class="ex-zh">${t.ex_zh}</div>
+      </div>
+    </div>
+  `}).join('');
+
+  // Homepage - show first 5
+  const homeGrid = document.getElementById('homeTraps');
+  const homeWords = [ALL_WORDS[0],ALL_WORDS[10],ALL_WORDS[20],ALL_WORDS[30],ALL_WORDS[40]];
+  homeGrid.innerHTML = homeWords.map((t,i)=>{
+    const globalIdx = ALL_WORDS.indexOf(t);
+    return `
+    <div class="trap-card" style="cursor:pointer">
+      <div class="trap-word-row">
+        <span class="trap-word-text" style="font-size:20px">${t.word}</span>
+        <button class="audio-btn-big" onclick="event.stopPropagation();speakTrap(${globalIdx})" title="听单词发音">🔊</button>
+      </div>
+      <div class="trap-compare" style="margin:0;padding:4px 8px">
+        <span class="trap-wrong">❌ ${t.wrong}</span>
+        <span class="trap-arrow">→</span>
+        <span class="trap-correct">✅ ${t.correct}</span>
+      </div>
+    </div>
+  `}).join('');
+}
+
+// ============================================================
+// 2. TRAP AUDIO
+// ============================================================
+let trapUtterance = null;
+function speakTrap(index){
+  if(trapUtterance){window.speechSynthesis.cancel();trapUtterance=null}
+  stopAllAudio();
+  if(index<0||index>=ALL_WORDS.length)return;
+  const word = ALL_WORDS[index].word;
+  showToast('🔊 播放单词: '+word);
+  azureTTS(word);
+}
+function speakExample(index){
+  if(trapUtterance){window.speechSynthesis.cancel();trapUtterance=null}
+  stopAllAudio();
+  if(index<0||index>=ALL_WORDS.length)return;
+  const sentence = ALL_WORDS[index].ex_pt;
+  showToast('📝 播放例句: '+sentence.split(' ').slice(0,5).join(' ')+(sentence.split(' ').length>5?'...':''));
+  azureTTS(sentence);
+}
+
+// ─── 发音陷阱页：录音 + 回放 ───
+let trapRecordingIdx = -1; // -1 = 没 trap 录音中
+
+function toggleTrapRecording(globalIdx){
+  // 如果同一个 trap 录緊 → 停止
+  if(trapRecordingIdx === globalIdx && mediaRecorder && isRecording){
+    mediaRecorder.stop();
+    return;
+  }
+  // 如果其他录音中（文章 / 另一个 trap）→ 取消舊
+  if(mediaRecorder && isRecording){
+    try{ mediaRecorder.stop(); }catch(e){}
+    isRecording = false;
+  }
+  // 取消舊 trap 录音掣 UI
+  if(trapRecordingIdx !== -1 && trapRecordingIdx !== globalIdx){
+    const oldBtn = document.getElementById('trapRec'+trapRecordingIdx);
+    if(oldBtn){ oldBtn.textContent='🎙️'; oldBtn.classList.remove('recording'); }
+  }
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    showToast('⚠️ 此设备不支援录音'); return;
+  }
+  navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
+    mediaRecorder = new MediaRecorder(stream);
+    audioChunks = [];
+    mediaRecorder.ondataavailable = e=>{ if(e.data.size>0) audioChunks.push(e.data); };
+    mediaRecorder.onstop = function(){
+      const blob = new Blob(audioChunks,{type:'audio/webm'});
+      const reader = new FileReader();
+      reader.onload = function(ev){
+        const key = 'trap_rec_'+globalIdx;
+        try{
+          localStorage.setItem(key, ev.target.result.split(',')[1]);
+          const playBtn = document.getElementById('trapPlay'+globalIdx);
+          if(playBtn) playBtn.disabled = false;
+          const status = document.getElementById('trapStatus'+globalIdx);
+          if(status) status.style.display = 'inline';
+          showToast('✅ 已录音: '+ALL_WORDS[globalIdx].word);
+        }catch(err){
+          showToast('⚠️ 儲存失敗（空间可能不足）');
+        }
+      };
+      reader.readAsDataURL(blob);
+      stream.getTracks().forEach(t=>t.stop());
+      // 重设掣
+      const recBtn = document.getElementById('trapRec'+globalIdx);
+      if(recBtn){ recBtn.textContent='🎙️'; recBtn.classList.remove('recording'); }
+      trapRecordingIdx = -1;
+      isRecording = false;
+    };
+    mediaRecorder.start();
+    isRecording = true;
+    trapRecordingIdx = globalIdx;
+    const recBtn = document.getElementById('trapRec'+globalIdx);
+    if(recBtn){ recBtn.textContent='⏹'; recBtn.classList.add('recording'); }
+    showToast('🎙️ 录音中... 再撳「⏹」停止');
+  }).catch(err=>{
+    showToast('⚠️ 無法访问麥克風');
+    isRecording = false;
+    trapRecordingIdx = -1;
+  });
+}
+
+function playTrapRecording(globalIdx){
+  const key = 'trap_rec_'+globalIdx;
+  const data = localStorage.getItem(key);
+  if(!data){ showToast('⚠️ 没录音'); return; }
+  try{
+    const bytes = atob(data), nums = new Array(bytes.length);
+    for(let i=0;i<bytes.length;i++) nums[i]=bytes.charCodeAt(i);
+    const blob = new Blob([new Uint8Array(nums)],{type:'audio/webm'});
+    const url = URL.createObjectURL(blob);
+    const audio = new Audio(url);
+    audio.play();
+    showToast('🔁 回放: '+ALL_WORDS[globalIdx].word);
+    audio.onended = ()=>{ URL.revokeObjectURL(url); showToast('✅ 回放结束'); };
+  }catch(e){ showToast('⚠️ 读取录音失敗'); }
+}
+
+// ============================================================
+// 3. ARTICLES DATA
+// ============================================================
+const ARTICLES_RAW = [
+  {title:'Casa de banho',icon:'🛁',id:0,
+    sentences:[
+      {text:'Nesta imagem, vejo uma casa de banho moderna e funcional.',type:'pt'},
+      {text:'在这张图片里，我看到一间现代且实用的浴室。',type:'zh'},
+      {text:'A banheira está ao lado da janela.',type:'pt'},
+      {text:'浴缸在窗户旁边。',type:'zh'},
+      {text:'Ao lado da banheira, está o tapete.',type:'pt'},
+      {text:'浴缸旁边有地毯。',type:'zh'},
+      {text:'A sanita está ao lado do bidé.',type:'pt'},
+      {text:'马桶在坐浴盆旁边。',type:'zh'},
+      {text:'O lavatório está em frente ao espelho.',type:'pt'},
+      {text:'洗手台在镜子前面。',type:'zh'},
+      {text:'O esquentador está pendurado na parede.',type:'pt'},
+      {text:'热水器挂在墙上。',type:'zh'},
+      {text:'A máquina de lavar roupa está ao lado da porta.',type:'pt'},
+      {text:'洗衣机在门旁边。',type:'zh'},
+      {text:'A casa de banho é pequena mas está muito limpa e arrumada.',type:'pt'},
+      {text:'浴室虽小，但非常干净整洁。',type:'zh'}
+    ]},
+  {title:'Cozinha',icon:'🍳',id:1,
+    sentences:[
+      {text:'Nesta imagem, vejo uma cozinha moderna e bem equipada.',type:'pt'},
+      {text:'在这张图片里，我看到一间现代且设备齐全的厨房。',type:'zh'},
+      {text:'O fogão e o forno estão ao lado da janela.',type:'pt'},
+      {text:'炉灶和烤箱在窗户旁边。',type:'zh'},
+      {text:'O frigorífico está ao lado da porta.',type:'pt'},
+      {text:'冰箱在门旁边。',type:'zh'},
+      {text:'Em cima da bancada, está o micro-ondas.',type:'pt'},
+      {text:'微波炉在台面上。',type:'zh'},
+      {text:'A mesa está no centro da cozinha.',type:'pt'},
+      {text:'桌子在厨房中央。',type:'zh'},
+      {text:'Os armários estão na parede.',type:'pt'},
+      {text:'橱柜在墙上。',type:'zh'},
+      {text:'A cozinha é espaçosa e tem boa luz natural.',type:'pt'},
+      {text:'厨房很宽敞，自然光线很好。',type:'zh'}
+    ]},
+  {title:'Quarto',icon:'🛏️',id:2,
+    sentences:[
+      {text:'Nesta imagem, vejo um quarto grande e confortável.',type:'pt'},
+      {text:'在这张图片里，我看到一间又大又舒适的卧室。',type:'zh'},
+      {text:'A cama está no centro do quarto.',type:'pt'},
+      {text:'床在房间中央。',type:'zh'},
+      {text:'Ao lado da cama, está a mesa de cabeceira com um candeeiro.',type:'pt'},
+      {text:'床旁边有带台灯的床头柜。',type:'zh'},
+      {text:'O armário está na parede, ao fundo.',type:'pt'},
+      {text:'衣柜在后面墙上。',type:'zh'},
+      {text:'A secretária está perto da janela e o computador está em cima da secretária.',type:'pt'},
+      {text:'书桌在窗户旁边，电脑在书桌上。',type:'zh'},
+      {text:'As cortinas são azuis.',type:'pt'},
+      {text:'窗帘是蓝色的。',type:'zh'},
+      {text:'O quarto é tranquilo e parece um bom lugar para descansar.',type:'pt'},
+      {text:'房间很安静，看起来是一个休息的很地方。',type:'zh'}
+    ]},
+  {title:'Sala de estar',icon:'🛋️',id:3,
+    sentences:[
+      {text:'Nesta imagem, vejo uma sala de estar acolhedora.',type:'pt'},
+      {text:'在这张图片里，我看到一间温馨的客厅。',type:'zh'},
+      {text:'O sofá está no centro da sala, em frente à televisão.',type:'pt'},
+      {text:'沙发在客厅中央，在电视对面。',type:'zh'},
+      {text:'A mesa de centro está à frente do sofá, com livros e uma chávena.',type:'pt'},
+      {text:'茶几在沙发前面，上面有书和杯子。',type:'zh'},
+      {text:'Ao lado do sofá, está a estante com muitos livros.',type:'pt'},
+      {text:'沙发旁边有书架，上面有很多书。',type:'zh'},
+      {text:'As cortinas são bege e há um tapete grande no chão.',type:'pt'},
+      {text:'窗帘是米色的，地板上有大地毯。',type:'zh'},
+      {text:'A sala é confortável e parece um bom espaço para relaxar com a família.',type:'pt'},
+      {text:'客厅很舒适，看起来是一个和家人放松的很地方。',type:'zh'}
+    ]},
+  {title:'Jantar em Família',icon:'🍽️',id:4,
+    sentences:[
+      {text:'Nesta imagem, vejo seis pessoas numa sala de jantar.',type:'pt'},
+      {text:'在这张图里，我看见餐厅里有六个人。',type:'zh'},
+      {text:'São os avós, os pais, uma menina e um bebé.',type:'pt'},
+      {text:'他们是祖父母、父母、小女孩和小宝宝。',type:'zh'},
+      {text:'Na mesa há arroz, carne e vegetais.',type:'pt'},
+      {text:'桌子上有米饭、肉和蔬菜。',type:'zh'},
+      {text:'A família está feliz a jantar junta.',type:'pt'},
+      {text:'一家人开心的一起吃晚餐。',type:'zh'},
+      {text:'Eu gosto de jantar com a minha família.',type:'pt'},
+      {text:'我喜欢和家人一起吃饭。',type:'zh'}
+    ]},
+  {title:'Mãe e Filha no Jardim',icon:'🌺',id:5,
+    sentences:[
+      {text:'Nesta imagem, vejo uma mãe e uma filha num jardim.',type:'pt'},
+      {text:'在这张图里，我看见花园里有一位妈妈和女儿。',type:'zh'},
+      {text:'Elas cuidam das flores e das plantas verdes.',type:'pt'},
+      {text:'她们在照料花朵和绿色植物。',type:'zh'},
+      {text:'A mãe usa um regador para regar as flores.',type:'pt'},
+      {text:'妈妈用水壶浇花。',type:'zh'},
+      {text:'As duas estão muito contentes.',type:'pt'},
+      {text:'她们两人非常开心。',type:'zh'},
+      {text:'É uma atividade bonita no tempo livre.',type:'pt'},
+      {text:'这是很棒的休闲活动。',type:'zh'}
+    ]},
+  {title:'Menina a Ler',icon:'📖',id:6,
+    sentences:[
+      {text:'Nesta imagem, vejo uma menina no sofá da sala.',type:'pt'},
+      {text:'在这张图里，我看见小女孩坐在客厅沙发上。',type:'zh'},
+      {text:'Ela está a ler um livro pequeno.',type:'pt'},
+      {text:'她正在看一本小书。',type:'zh'},
+      {text:'Ao lado dela há uma lâmpada de mesa.',type:'pt'},
+      {text:'她旁边有一盏台灯。',type:'zh'},
+      {text:'A sala é calma e confortável.',type:'pt'},
+      {text:'房间安静又舒服。',type:'zh'},
+      {text:'Ela gosta de ler no tempo livre.',type:'pt'},
+      {text:'她喜欢在空闲时间看书。',type:'zh'}
+    ]},
+  {title:'Irmãos a Ver TV',icon:'📺',id:7,
+    sentences:[
+      {text:'Nesta imagem, vejo dois irmãos no sofá de casa.',type:'pt'},
+      {text:'在这张图里，我看见姐弟两坐在家里沙发上。',type:'zh'},
+      {text:'Eles estão a ver um desenho animado na televisão.',type:'pt'},
+      {text:'他们正在电视上看动画片。',type:'zh'},
+      {text:'Na mesa há bolachas e suco de fruta.',type:'pt'},
+      {text:'茶几上有饼干和果汁。',type:'zh'},
+      {text:'Eles passam o tempo livre juntos.',type:'pt'},
+      {text:'他们一起度过空闲时间。',type:'zh'},
+      {text:'A cena é calma e divertida.',type:'pt'},
+      {text:'画面安静又有趣。',type:'zh'}
+    ]},
+  {title:'Família a Brincar',icon:'🧸',id:8,
+    sentences:[
+      {text:'Nesta imagem, vejo uma família de quatro pessoas.',type:'pt'},
+      {text:'在这张图里，我看见一个四口之家。',type:'zh'},
+      {text:'Eles estão na sala de estar da casa.',type:'pt'},
+      {text:'他们在家里的客厅。',type:'zh'},
+      {text:'As crianças brincam com muitos brinquedos.',type:'pt'},
+      {text:'小朋友们在玩很多玩具。',type:'zh'},
+      {text:'Os pais estão ao lado dos filhos.',type:'pt'},
+      {text:'爸爸妈妈在孩子身旁。',type:'zh'},
+      {text:'Toda a família está muito feliz.',type:'pt'},
+      {text:'全家人都非常开心。',type:'zh'}
+    ]},
+  {title:'Mãe a Cuidar do Filho',icon:'🤒',id:9,
+    sentences:[
+      {text:'Nesta imagem, vejo uma mãe e um menino doente.',type:'pt'},
+      {text:'在这张图里，我看见一位妈妈和生病的小男孩。',type:'zh'},
+      {text:'Eles estão no quarto da casa.',type:'pt'},
+      {text:'他们在家里的卧室。',type:'zh'},
+      {text:'O menino está deitado na cama e tem febre.',type:'pt'},
+      {text:'小男孩躺在床上、发烧了。',type:'zh'},
+      {text:'A mãe dá água e medicamento ao filho.',type:'pt'},
+      {text:'妈妈给孩子喝水、吃药。',type:'zh'},
+      {text:'A sala está muito calma.',type:'pt'},
+      {text:'房间非常安静。',type:'zh'}
+    ]},
+  {title:'Natal em Família',icon:'🎄',id:10,
+    sentences:[
+      {text:'Nesta imagem, vejo uma família perto da árvore de Natal.',type:'pt'},
+      {text:'在这张图里，我看见一家人在圣诞树旁边。',type:'zh'},
+      {text:'Eles abrem muitas caixas de presentes.',type:'pt'},
+      {text:'他们拆开很多礼物盒。',type:'zh'},
+      {text:'As crianças têm brinquedos novos.',type:'pt'},
+      {text:'小朋友们有新玩具。',type:'zh'},
+      {text:'A família está junta em casa.',type:'pt'},
+      {text:'全家人在家团聚。',type:'zh'},
+      {text:'O dia de Natal é muito alegre.',type:'pt'},
+      {text:'圣诞节是很快乐的日子。',type:'zh'}
+    ]},
+  {title:'Menina no Parque',icon:'🏃',id:11,
+    sentences:[
+      {text:'Nesta imagem, vejo uma menina pequena no parque.',type:'pt'},
+      {text:'在这张图里，我看见公园里有一个小女孩。',type:'zh'},
+      {text:'Ela veste um vestido vermelho e corre na relva.',type:'pt'},
+      {text:'她穿红色连衣裙，在草坪上奔跑。',type:'zh'},
+      {text:'O dia está ensolarado e muito bonito.',type:'pt'},
+      {text:'今天阳光充足、天气很好。',type:'zh'},
+      {text:'A menina sorri e está muito feliz.',type:'pt'},
+      {text:'小女孩在微笑，非常开心。',type:'zh'},
+      {text:'Ela gosta de brincar ao ar livre.',type:'pt'},
+      {text:'她喜欢在户外玩耍。',type:'zh'}
+    ]},
+  {title:'Pai e Filho a Jogar Futebol',icon:'⚽',id:12,
+    sentences:[
+      {text:'Nesta imagem, vejo um pai e um filho no parque.',type:'pt'},
+      {text:'在这张图里，我看见公园里的爸爸和儿子。',type:'zh'},
+      {text:'Eles jogam futebol na relva verde.',type:'pt'},
+      {text:'他们在绿草坪上踢足球。',type:'zh'},
+      {text:'O menino corre atrás da bola de futebol.',type:'pt'},
+      {text:'小男孩追着足球跑。',type:'zh'},
+      {text:'O céu é azul e o tempo está bom.',type:'pt'},
+      {text:'天空很蓝、天气很好。',type:'zh'},
+      {text:'Eles divertem-se muito juntos.',type:'pt'},
+      {text:'他们一起玩得很开心。',type:'zh'}
+    ]},
+  {title:'Piquenique na Praia',icon:'🏖️',id:13,
+    sentences:[
+      {text:'Nesta imagem, vejo muitas pessoas na praia.',type:'pt'},
+      {text:'在这张图里，我看见沙滩上有很多人。',type:'zh'},
+      {text:'Uma família está a fazer um piquenique.',type:'pt'},
+      {text:'有一家人正在野餐。',type:'zh'},
+      {text:'O tempo está muito bom e há muito sol.',type:'pt'},
+      {text:'天气非常好，阳光很充足。',type:'zh'},
+      {text:'Todos estão felizes a brincar na areia.',type:'pt'},
+      {text:'大家开心的在沙地上玩耍。',type:'zh'},
+      {text:'É um dia muito agradável.',type:'pt'},
+      {text:'这是很舒服的一天。',type:'zh'}
+    ]},
+  {title:'Piquenique na Relva',icon:'🧺',id:14,
+    sentences:[
+      {text:'Nesta imagem, vejo pessoas a fazer piquenique na relva.',type:'pt'},
+      {text:'在这张图里，我看见人们在草坪野餐。',type:'zh'},
+      {text:'Elas comem peixe e arroz e bebem água.',type:'pt'},
+      {text:'他们吃鱼、米饭，也喝水。',type:'zh'},
+      {text:'O dia é bonito e ensolarado.',type:'pt'},
+      {text:'天气很好、阳光普照。',type:'zh'},
+      {text:'As pessoas estão calmas e relaxadas.',type:'pt'},
+      {text:'人们很放松、很悠闲。',type:'zh'},
+      {text:'Gosto muito de piqueniques no parque.',type:'pt'},
+      {text:'我很喜欢在公园野餐。',type:'zh'}
+    ]},
+  {title:'Crianças no Parque',icon:'🎠',id:15,
+    sentences:[
+      {text:'Nesta imagem, vejo muitas crianças num parque.',type:'pt'},
+      {text:'在这张图里，我看见公园里很多小朋友。',type:'zh'},
+      {text:'Algumas crianças brincam no balanço.',type:'pt'},
+      {text:'有些小朋友在荡秋千。',type:'zh'},
+      {text:'Outras crianças jogam futebol na relva.',type:'pt'},
+      {text:'有些小朋友在草坪踢足球。',type:'zh'},
+      {text:'O tempo está bom e faz sol.',type:'pt'},
+      {text:'天气很好、阳光充足。',type:'zh'},
+      {text:'Todas as crianças estão muito contentes.',type:'pt'},
+      {text:'所有小朋友都非常开心。',type:'zh'}
+    ]},
+  {title:'Mulher no Café',icon:'☕',id:16,
+    sentences:[
+      {text:'Nesta imagem, vejo uma mulher num café.',type:'pt'},
+      {text:'在这张图里，我看见咖啡厅里有一位女士。',type:'zh'},
+      {text:'São quatro horas da tarde e o tempo está bom.',type:'pt'},
+      {text:'现在是下午四点，天气很好。',type:'zh'},
+      {text:'Ela bebe café e come um bolo saboroso.',type:'pt'},
+      {text:'她喝咖啡、吃美味的蛋糕。',type:'zh'},
+      {text:'Ela trabalha com o seu computador.',type:'pt'},
+      {text:'她在用电脑工作。',type:'zh'},
+      {text:'A mulher está muito tranquila e feliz.',type:'pt'},
+      {text:'女士非常放松、开心。',type:'zh'}
+    ]},
+  {title:'Casal no Supermercado',icon:'🛒',id:17,
+    sentences:[
+      {text:'Nesta imagem, vejo um homem e uma mulher.',type:'pt'},
+      {text:'在这张图里，我看见一位男士和一位女士。',type:'zh'},
+      {text:'Eles estão num supermercado de Macau.',type:'pt'},
+      {text:'他们在澳门的超级市场。',type:'zh'},
+      {text:'O homem empurra um carrinho de compras.',type:'pt'},
+      {text:'男士推着购物车。',type:'zh'},
+      {text:'A mulher põe maçãs no carrinho.',type:'pt'},
+      {text:'女士把苹果放进购物车。',type:'zh'},
+      {text:'Eles estão felizes a fazer compras.',type:'pt'},
+      {text:'他们开心的买东西。',type:'zh'}
+    ]},
+  {title:'Trotineta Elétrica',icon:'🛴',id:18,
+    sentences:[
+      {text:'Nesta imagem, vejo um homem na rua da cidade.',type:'pt'},
+      {text:'在这张图里，我看见城市街道上有一位男士。',type:'zh'},
+      {text:'Ele anda numa trotineta elétrica.',type:'pt'},
+      {text:'他正在骑电动滑板车。',type:'zh'},
+      {text:'O dia está ensolarado e o tempo é bom.',type:'pt'},
+      {text:'今天阳光充足、天气很好。',type:'zh'},
+      {text:'Há carros e casas ao fundo da rua.',type:'pt'},
+      {text:'街道背景有汽车和房子。',type:'zh'},
+      {text:'É um meio de transporte rápido.',type:'pt'},
+      {text:'这是一种很快的交通工具。',type:'zh'}
+    ]},
+  {title:'Robô e Idoso',icon:'🤖',id:19,
+    sentences:[
+      {text:'Nesta imagem, vejo um senhor idoso e um robô.',type:'pt'},
+      {text:'在这张图里，我看见一位老人和一台机器人。',type:'zh'},
+      {text:'Eles estão dentro de uma casa.',type:'pt'},
+      {text:'他们在一间屋子里。',type:'zh'},
+      {text:'O robô traz uma chávena de água ao senhor.',type:'pt'},
+      {text:'机器人给老人送一杯水。',type:'zh'},
+      {text:'O senhor está sentado e sorri muito.',type:'pt'},
+      {text:'老人坐着、笑得很开心。',type:'zh'},
+      {text:'O robô ajuda as pessoas idosas.',type:'pt'},
+      {text:'机器人可以帮助老年人。',type:'zh'}
+    ]}
+];
+
+// ============================================================
+// 4. 跟读 ENGINE
+// ============================================================
+let currentArticleIndex = 0;
+let currentSentenceIndex = 0;
+let isPlaying = false, isPaused = false, isFinished = false, isCancelled = false, isSinglePlay = false;
+let currentUtterance = null, timeoutId = null;
+let selectedVoiceURI = '', isVoiceFixed = false, speechRate = 0.85;
+let mediaRecorder = null, audioChunks = [], isRecording = false;
+let isMasked = false;
+
+// ─── Azure TTS config（经 Vercel /api/tts proxy，key 只存 server env）───
+const TTS_CONFIG = { proxySecret: '5242e788-ee81-42b2-a5b7-9f1b624b67fd', voice: 'pt-PT-FernandaNeural' };
+let currentAudio = null;
+
+const voiceSelect = document.getElementById('voiceSelect');
+const speedSlider = document.getElementById('speedSlider');
+const speedDisplay = document.getElementById('speedDisplay');
+const articleTabs = document.getElementById('articleTabs');
+const articleContent = document.getElementById('articleContent');
+const playBtn = document.getElementById('playBtn');
+const pauseBtn = document.getElementById('pauseBtn');
+const resumeBtn = document.getElementById('resumeBtn');
+const progressBar = document.getElementById('progressBar');
+const progressWrap = document.getElementById('progressWrap');
+const statusText = document.getElementById('statusText');
+const statusPosition = document.getElementById('statusPosition');
+const toggleMaskBtn = document.getElementById('toggleMaskBtn');
+const showAllBtn = document.getElementById('showAllBtn');
+const hideAllBtn = document.getElementById('hideAllBtn');
+
+window.selectedVoiceURI = '';
+
+function loadVoices(){
+  const voices = speechSynthesis.getVoices();
+  if(!voices||!voices.length){setTimeout(loadVoices,300);return}
+  const currentValue = voiceSelect.value;
+  voiceSelect.innerHTML = '<option value="">✨ Azure 自然语音 (默认)</option>';
+  const ptVoices = voices.filter(v=>v.lang.startsWith('pt'));
+  (ptVoices.length?ptVoices:voices).forEach(v=>{
+    const opt=document.createElement('option');
+    opt.value=v.voiceURI;opt.textContent=v.name+' ('+v.lang+')';voiceSelect.appendChild(opt)
+  });
+  if(currentValue)voiceSelect.value=currentValue;
+  if(selectedVoiceURI){voiceSelect.value=selectedVoiceURI;isVoiceFixed=true}
+}
+setTimeout(loadVoices,200);
+speechSynthesis.onvoiceschanged=loadVoices;
+
+voiceSelect.addEventListener('change',function(){
+  selectedVoiceURI=this.value;
+  window.selectedVoiceURI=this.value;
+  isVoiceFixed=!!selectedVoiceURI;
+  showToast('🔊 语音已切换');
+});
+
+speedSlider.addEventListener('input',function(){
+  speechRate=parseFloat(this.value);
+  speedDisplay.textContent=speechRate.toFixed(2);
+});
+
+function getVoice(){
+  if(!selectedVoiceURI)return null;
+  return speechSynthesis.getVoices().find(v=>v.voiceURI===selectedVoiceURI)||null;
+}
+
+// ─── Azure-first TTS 播放引擎 ───
+function stopAllAudio(){
+  if(currentUtterance){window.speechSynthesis.cancel();currentUtterance=null}
+  if(currentAudio){try{currentAudio.pause();currentAudio=null}catch(e){}currentAudio=null}
+  const el=document.getElementById('azureAudio');if(el){try{el.pause();el.removeAttribute('src')}catch(e){}}
+}
+
+// 无延迟优化：若文本在 tts-manifest.json 中且语速为默认 0.85，直接播静态 mp3（CDN <100ms）
+// 否则走 azureLive() 实时合成（/api/tts），保证任意语速/未登记文本仍可发音
+function azureTTS(text, onDone){
+  const clean = (text||'').replace(/[""]/g,'').trim();
+  if(!clean){ if(onDone) onDone(); return; }
+  const key = clean.toLowerCase();
+  const staticUrl = (window.__AUDIO_MAP && window.__AUDIO_MAP[key]) || null;
+  if(staticUrl && Math.abs(speechRate - 0.85) < 0.001){
+    const el = document.getElementById('azureAudio');
+    if(el){
+      currentAudio = el;
+      el.src = staticUrl;
+      el.onended = function(){ el.onerror=null; currentAudio=null; if(onDone) onDone(); };
+      el.onerror = function(){ el.onended=null; currentAudio=null; azureLive(clean, onDone); };
+      const p = el.play();
+      if(p && p.catch){ p.catch(function(){ el.onended=null; currentAudio=null; azureLive(clean, onDone); }); }
+      return;
+    }
+  }
+  azureLive(clean, onDone);
+}
+
+// 实时合成（/api/tts 代理）→ 失败/超时 fallback 浏览器语音
+function azureLive(clean, onDone){
+  fetch('/api/tts', {
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-proxy-secret':TTS_CONFIG.proxySecret},
+    body: JSON.stringify({ text: clean, voice: TTS_CONFIG.voice, rate: String(speechRate) })
+  }).then(r=>r.json()).then(d=>{
+    if(d && d.audio){
+      const el = document.getElementById('azureAudio');
+      if(!el){ browserSpeak(clean, onDone); return; }
+      currentAudio = el;
+      el.src = 'data:audio/mp3;base64,'+d.audio;
+      el.onended = function(){ el.onerror=null; currentAudio=null; if(onDone) onDone(); };
+      el.onerror = function(){ el.onended=null; currentAudio=null; browserSpeak(clean, onDone); };
+      const p = el.play();
+      if(p && p.catch){ p.catch(function(){ el.onended=null; currentAudio=null; browserSpeak(clean, onDone); }); }
+    } else {
+      browserSpeak(clean, onDone);
+    }
+  }).catch(function(){ browserSpeak(clean, onDone); });
+}
+
+function browserSpeak(text, onDone){
+  if(currentUtterance){window.speechSynthesis.cancel();currentUtterance=null}
+  const utterance=new SpeechSynthesisUtterance(text);
+  utterance.lang='pt-PT';utterance.rate=speechRate;utterance.pitch=1;
+  const voice=getVoice();if(voice)utterance.voice=voice;
+  utterance.onend=function(){currentUtterance=null;if(onDone)onDone()};
+  utterance.onerror=function(){currentUtterance=null;if(!isCancelled&&onDone)onDone()};
+  currentUtterance=utterance;
+  window.speechSynthesis.speak(utterance);
+}
+
+function speakText(text,callback){
+  if(!text){if(callback)callback();return}
+  let clean=text.replace(/[""]/g,'').trim();
+  if(!clean){if(callback)callback();return}
+  stopAllAudio();
+  azureTTS(clean, callback);
+}
+
+function stopSpeaking(){
+  stopAllAudio();
+  clearTimeout(timeoutId);isCancelled=true;
+}
+
+function applyMask(){
+  // 双语遮擋：葡文 + 中文都遮，点击句子先显示（方便背句子）
+  document.querySelectorAll('.article-content .sentence .text').forEach(el=>{if(!el.classList.contains('unmasked'))el.classList.add('masked')});
+  isMasked=true;toggleMaskBtn.textContent='🔓 显示句子';toggleMaskBtn.classList.add('unmask');
+}
+function removeMask(){
+  document.querySelectorAll('.article-content .sentence .text').forEach(el=>el.classList.remove('masked'));
+  isMasked=false;toggleMaskBtn.textContent='🔒 遮挡双语';toggleMaskBtn.classList.remove('unmask');
+}
+function toggleMask(){
+  isMasked?removeMask():applyMask();
+  showToast(isMasked?'🔒 已遮挡双语，点句子显示':'🔓 已显示所有句子');
+}
+function handleMaskClick(el){
+  if(!isMasked)return;
+  if(el.classList.contains('masked')){el.classList.remove('masked');el.classList.add('unmasked')}
+  else if(el.classList.contains('unmasked')){el.classList.add('masked');el.classList.remove('unmasked')}
+}
+
+function renderTabs(){
+  let html='';
+  ARTICLES_RAW.forEach((a,i)=>{
+    html+=`<button class="${i===currentArticleIndex?'active':''}" data-index="${i}"><span>${a.icon}</span> ${a.title}</button>`
+  });
+  articleTabs.innerHTML=html;
+  document.querySelectorAll('.article-tabs button').forEach(btn=>{
+    btn.addEventListener('click',function(){
+      const idx=parseInt(this.dataset.index);
+      if(idx!==currentArticleIndex){
+        stopSpeaking();
+        if(mediaRecorder&&isRecording){mediaRecorder.stop();isRecording=false}
+        isMasked=false;toggleMaskBtn.textContent='🔒 遮挡双语';toggleMaskBtn.classList.remove('unmask');
+        renderArticle(idx);
+        showToast('📖 已切换到 '+ARTICLES_RAW[idx].icon+' '+ARTICLES_RAW[idx].title);
+      }
+    });
+  });
+}
+
+function renderArticle(index){
+  const article=ARTICLES_RAW[index];
+  if(!article||!article.sentences){articleContent.innerHTML='<div style="text-align:center;padding:50px 20px;color:#b15e4a;font-size:16px;"> 文章数据错误</div>';return}
+  let html='';
+  article.sentences.forEach((item,idx)=>{
+    const label=item.type==='pt'?'🇵🇹':'🇨🇳';
+    const cls=item.type==='pt'?'text pt-text':'text zh-text';
+    const key=`rec_${index}_${idx}`;
+    const hasRecording=localStorage.getItem(key)!==null;
+    html+=`<div class="sentence" data-index="${idx}" data-type="${item.type}">`;
+    html+=`<span class="label">${label}</span>`;
+    html+=`<span class="${cls}" data-index="${idx}">${item.text}</span>`;
+    if(item.type==='pt'){
+      html+=`<span class="play-icon" data-index="${idx}">▶</span>`;
+      html+=`<button class="record-btn" data-key="${key}" data-index="${idx}" title="录音">🎙</button>`;
+      html+=`<button class="playback-btn" data-key="${key}" data-index="${idx}" title="回放录音" ${!hasRecording?'disabled':''}>🔊</button>`;
+      if(hasRecording)html+=`<span class="record-status">✅</span>`;
+    }
+    html+=`</div>`;
+  });
+  articleContent.innerHTML=html;
+  currentArticleIndex=index;currentSentenceIndex=0;
+  isPlaying=false;isPaused=false;isFinished=false;isCancelled=false;isSinglePlay=false;
+  progressBar.style.width='0%';
+  renderTabs();updateStatus();updateHighlight();stopSpeaking();updateButtons();bindEvents();
+  if(isMasked)applyMask();
+  const rec=ARTICLES_RAW[index];
+  document.getElementById('homeRecIcon').textContent=rec.icon;
+  document.getElementById('homeRecTitle').textContent=rec.title;
+}
+
+function updateHighlight(){
+  const sentences=articleContent.querySelectorAll('.sentence');
+  sentences.forEach((el,idx)=>el.classList.toggle('highlight',idx===currentSentenceIndex));
+  if(sentences[currentSentenceIndex])sentences[currentSentenceIndex].scrollIntoView({behavior:'smooth',block:'center'});
+}
+
+function updateStatus(){
+  const article=ARTICLES_RAW[currentArticleIndex];
+  if(!article)return;
+  const total=article.sentences.length;
+  const pct=Math.round((currentSentenceIndex/total)*100);
+  progressBar.style.width=Math.min(pct,100)+'%';
+  let msg='';
+  if(isFinished)msg='✅ 全部播放完成！点击「播放全部」重新开始';
+  else if(isPlaying)msg=isSinglePlay?`🔊 播放中... 句子 ${currentSentenceIndex+1} / ${total}`:`🔊 播放全部中... 句子 ${currentSentenceIndex+1} / ${total}`;
+  else if(isPaused)msg=`⏸️ 已暂停 — 句子 ${currentSentenceIndex+1} / ${total}`;
+  else msg=`📖 句子 ${currentSentenceIndex+1} / ${total} — 点击葡语句子播放，或按「播放全部」`;
+  statusText.textContent=msg;
+  statusPosition.textContent=`句子 ${currentSentenceIndex+1} / ${total}`;
+}
+
+function updateButtons(){
+  if(isFinished){playBtn.textContent='▶️ 重新播放';playBtn.classList.remove('playing');pauseBtn.disabled=true;resumeBtn.disabled=true;return}
+  if(isPlaying){playBtn.textContent=isSinglePlay?'▶️ 播放全部':'🔊 播放中...';playBtn.classList.add('playing');pauseBtn.disabled=false;resumeBtn.disabled=true}
+  else if(isPaused){playBtn.textContent='▶️ 继续';playBtn.classList.remove('playing');pauseBtn.disabled=true;resumeBtn.disabled=false}
+  else{playBtn.textContent='▶️ 播放全部';playBtn.classList.remove('playing');pauseBtn.disabled=true;resumeBtn.disabled=true}
+}
+
+function bindEvents(){
+  // 中葡句子都可点击：遮擋模式 toggle 显示/隐藏；非遮擋时点葡文播放
+  document.querySelectorAll('.sentence .text').forEach(el=>{
+    el.addEventListener('click',function(e){
+      if(isMasked){handleMaskClick(this);return}
+      if(!this.classList.contains('pt-text'))return;
+      const idx=parseInt(this.dataset.index);
+      if(ARTICLES_RAW[currentArticleIndex].sentences[idx].type==='pt'){
+        if(isPlaying&&!isSinglePlay){stopSpeaking();isPlaying=false;isPaused=false}
+        playSingleSentence(idx);
+      }
+    });
+  });
+  document.querySelectorAll('.play-icon').forEach(el=>{
+    el.addEventListener('click',function(e){
+      e.stopPropagation();
+      const idx=parseInt(this.dataset.index);
+      if(ARTICLES_RAW[currentArticleIndex].sentences[idx].type==='pt'){
+        if(isPlaying&&!isSinglePlay){stopSpeaking();isPlaying=false;isPaused=false}
+        playSingleSentence(idx);
+      }
+    });
+  });
+  document.querySelectorAll('.record-btn').forEach(btn=>{
+    btn.addEventListener('click',function(e){e.stopPropagation();toggleRecording(this,this.dataset.key,parseInt(this.dataset.index))});
+  });
+  document.querySelectorAll('.playback-btn').forEach(btn=>{
+    btn.addEventListener('click',function(e){e.stopPropagation();playRecording(this.dataset.key)});
+  });
+}
+
+function playSingleSentence(index){
+  const article=ARTICLES_RAW[currentArticleIndex];
+  if(index>=article.sentences.length||article.sentences[index].type!=='pt')return;
+  stopSpeaking();isPlaying=false;isPaused=false;isCancelled=false;isSinglePlay=true;
+  currentSentenceIndex=index;updateStatus();updateHighlight();updateButtons();
+  speakText(article.sentences[index].text,function(){
+    isSinglePlay=false;isPlaying=false;updateStatus();updateButtons();showToast('✅ 播放完成');
+  });
+}
+
+function handlePlay(){
+  const article=ARTICLES_RAW[currentArticleIndex];const total=article.sentences.length;
+  if(isFinished){currentSentenceIndex=0;isFinished=false;isPaused=false;isPlaying=false;isCancelled=false;isSinglePlay=false;startPlaying();return}
+  if(isPaused){resumePlaying();return}
+  if(isPlaying)return;
+  if(currentSentenceIndex>=total)currentSentenceIndex=0;
+  isCancelled=false;isSinglePlay=false;startPlaying();
+}
+function startPlaying(){
+  const article=ARTICLES_RAW[currentArticleIndex];
+  if(currentSentenceIndex>=article.sentences.length)currentSentenceIndex=0;
+  isPlaying=true;isPaused=false;isFinished=false;isCancelled=false;isSinglePlay=false;
+  updateStatus();updateButtons();speakNextSentence(currentSentenceIndex);
+}
+function resumePlaying(){
+  if(!isPaused)return;
+  const article=ARTICLES_RAW[currentArticleIndex];
+  if(currentSentenceIndex>=article.sentences.length){currentSentenceIndex=0;isPaused=false;isPlaying=true;isFinished=false;isCancelled=false;isSinglePlay=false;updateStatus();updateButtons();speakNextSentence(0);return}
+  isPaused=false;isPlaying=true;isFinished=false;isCancelled=false;isSinglePlay=false;
+  updateStatus();updateButtons();speakNextSentence(currentSentenceIndex);
+}
+function speakNextSentence(index){
+  if(isCancelled){isCancelled=false;return}
+  const article=ARTICLES_RAW[currentArticleIndex];
+  if(index>=article.sentences.length){isPlaying=false;isPaused=false;isFinished=true;isSinglePlay=false;progressBar.style.width='100%';updateStatus();updateButtons();showToast('✅ 全部播放完成！');return}
+  currentSentenceIndex=index;const item=article.sentences[index];
+  updateStatus();updateHighlight();updateButtons();
+  if(item.type==='pt'){speakText(item.text,function(){if(isCancelled){isCancelled=false;return}if(isPlaying&&!isPaused){timeoutId=setTimeout(function(){speakNextSentence(index+1)},500)}})}else{if(isPlaying&&!isPaused){timeoutId=setTimeout(function(){speakNextSentence(index+1)},300)}}
+}
+function handlePause(){if(isPlaying){isPaused=true;isPlaying=false;stopSpeaking();updateStatus();updateButtons();showToast('⏸️ 已暂停')}}
+function handleResume(){if(isPaused){isCancelled=false;resumePlaying();showToast('▶️ 继续播放')}}
+
+function toggleRecording(btn,key,index){
+  if(isRecording){if(mediaRecorder){mediaRecorder.stop();isRecording=false;btn.textContent='🎙';btn.classList.remove('recording');showToast('⏹️ 录音已停止')}return}
+  navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
+    mediaRecorder=new MediaRecorder(stream);audioChunks=[];
+    mediaRecorder.ondataavailable=event=>{if(event.data.size>0)audioChunks.push(event.data)};
+    mediaRecorder.onstop=function(){
+      const blob=new Blob(audioChunks,{type:'audio/webm'});
+      const reader=new FileReader();
+      reader.onload=function(e){
+        localStorage.setItem(key,e.target.result.split(',')[1]);
+        btn.textContent='🎙';btn.classList.remove('recording');isRecording=false;
+        const pb=btn.parentElement.querySelector('.playback-btn');if(pb)pb.disabled=false;
+        let ss=btn.parentElement.querySelector('.record-status');
+        if(!ss){ss=document.createElement('span');ss.className='record-status';btn.parentElement.appendChild(ss)}
+        ss.textContent='✅';showToast('✅ 录音已保存！');
+      };
+      reader.readAsDataURL(blob);
+      stream.getTracks().forEach(t=>t.stop());
+    };
+    mediaRecorder.start();isRecording=true;btn.textContent='⏹';btn.classList.add('recording');showToast('🎙 录音中... 点击停止');
+  }).catch(()=>showToast(' 无法访问麦克风，请允许权限'));
+}
+
+function playRecording(key){
+  const data=localStorage.getItem(key);
+  if(!data){showToast(' 没有找到录音');return}
+  try{
+    const byteCharacters=atob(data),byteNumbers=new Array(byteCharacters.length);
+    for(let i=0;i<byteCharacters.length;i++)byteNumbers[i]=byteCharacters.charCodeAt(i);
+    const blob=new Blob([new Uint8Array(byteNumbers)],{type:'audio/webm'});
+    const audio=new Audio(URL.createObjectURL(blob));audio.play();showToast('🔊 回放录音中...');
+    audio.onended=()=>showToast('✅ 回放结束');
+  }catch(e){showToast(' 无法读取录音文件')}
+}
+
+// Button events
+playBtn.addEventListener('click',handlePlay);
+pauseBtn.addEventListener('click',handlePause);
+resumeBtn.addEventListener('click',handleResume);
+toggleMaskBtn.addEventListener('click',toggleMask);
+showAllBtn.addEventListener('click',function(){removeMask();document.querySelectorAll('.article-content .sentence .text.unmasked').forEach(el=>el.classList.remove('unmasked'));showToast('🔓 全部显示')});
+hideAllBtn.addEventListener('click',function(){document.querySelectorAll('.article-content .sentence .text.unmasked').forEach(el=>el.classList.remove('unmasked'));applyMask();showToast('🔒 全部遮挡')});
+
+progressWrap.addEventListener('click',function(e){
+  const pct=(e.clientX-this.getBoundingClientRect().left)/this.offsetWidth;
+  const article=ARTICLES_RAW[currentArticleIndex];const total=article.sentences.length;
+  const target=Math.floor(pct*total);
+  if(target<total&&target!==currentSentenceIndex){
+    stopSpeaking();clearTimeout(timeoutId);isPlaying=false;isPaused=false;isFinished=false;isCancelled=false;isSinglePlay=true;
+    currentSentenceIndex=target;const item=article.sentences[target];
+    updateStatus();updateHighlight();updateButtons();
+    if(item.type==='pt'){speakText(item.text,function(){isSinglePlay=false;isPlaying=false;updateStatus();updateButtons()})}else{isSinglePlay=false;updateStatus();updateButtons()}
+    showToast('📍 跳转到句子 '+(target+1));
+  }
+});
+
+// Keyboard shortcuts
+document.addEventListener('keydown',function(e){
+  if(e.target.tagName==='INPUT'||e.target.tagName==='SELECT')return;
+  if(e.key===' '||e.key==='Space'){e.preventDefault();isPaused?handleResume():handlePlay()}
+  if(e.key==='p'||e.key==='P'){e.preventDefault();handlePause()}
+  if(e.key==='r'||e.key==='R'){e.preventDefault();handleResume()}
+  if(e.key==='m'||e.key==='M'){e.preventDefault();toggleMask()}
+});
+
+// Toast
+let toastTimeout=null;
+function showToast(msg){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(toastTimeout);
+  toastTimeout=setTimeout(()=>el.classList.remove('show'),2000);
+}
+
+// Init
+renderTraps();
+renderArticle(0);
+document.getElementById('totalBadge').textContent=ARTICLES_RAW.length+' 篇文章';
+console.log('📖 U记欧葡跟读已加载！共 '+ARTICLES_RAW.length+' 篇文章，10 个发音陷阱');
+</script>
+</body>
+</html>

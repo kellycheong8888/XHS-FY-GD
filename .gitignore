@@ -1,0 +1,5 @@
+audio/
+deploy.log
+node_modules/
+.vercel/
+*.log
