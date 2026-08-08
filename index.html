@@ -753,15 +753,16 @@ let trapRecordingIdx = -1; // -1 = 没 trap 录音中
 
 function toggleTrapRecording(globalIdx){
   // 如果同一个 trap 录緊 → 停止
-  if(trapRecordingIdx === globalIdx && mediaRecorder && isRecording){
-    mediaRecorder.stop();
+  if(trapRecordingIdx === globalIdx && isRecording){
+    stopWavCapture();
+    isRecording=false; trapRecordingIdx=-1;
+    const recBtn=document.getElementById('trapRec'+globalIdx);
+    if(recBtn){recBtn.textContent='🎙️';recBtn.classList.remove('recording');}
+    showToast('⏹️ 录音已停止');
     return;
   }
   // 如果其他录音中（文章 / 另一个 trap）→ 取消舊
-  if(mediaRecorder && isRecording){
-    try{ mediaRecorder.stop(); }catch(e){}
-    isRecording = false;
-  }
+  if(isRecording){ stopWavCapture(); isRecording=false; }
   // 取消舊 trap 录音掣 UI
   if(trapRecordingIdx !== -1 && trapRecordingIdx !== globalIdx){
     const oldBtn = document.getElementById('trapRec'+trapRecordingIdx);
@@ -770,44 +771,19 @@ function toggleTrapRecording(globalIdx){
   if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
     showToast('⚠️ 此设备不支援录音'); return;
   }
-  navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
-    const recTypes=['audio/webm','audio/ogg;codecs=opus','audio/mp4'];
-    const recMime=recTypes.find(t=>MediaRecorder.isTypeSupported(t))||'audio/webm';
-    mediaRecorder = new MediaRecorder(stream,{mimeType:recMime});
-    audioChunks = [];
-    mediaRecorder.ondataavailable = e=>{ if(e.data.size>0) audioChunks.push(e.data); };
-    mediaRecorder.onstop = function(){
-      const blob = new Blob(audioChunks,{type:recMime});
-      const reader = new FileReader();
-      reader.onload = function(ev){
-        const key = 'trap_rec_'+globalIdx;
-        try{
-          const b64 = ev.target.result.split(',')[1];
-          localStorage.setItem(key, JSON.stringify({mime:recMime,data:b64}));
-          const playBtn = document.getElementById('trapPlay'+globalIdx);
-          if(playBtn) playBtn.disabled = false;
-          const status = document.getElementById('trapStatus'+globalIdx);
-          if(status) status.style.display = 'inline';
-          showToast('✅ 已录音: '+ALL_WORDS[globalIdx].word);
-        }catch(err){
-          showToast('⚠️ 儲存失敗（空间可能不足）');
-        }
-      };
-      reader.readAsDataURL(blob);
-      stream.getTracks().forEach(t=>t.stop());
-      // 重设掣
-      const recBtn = document.getElementById('trapRec'+globalIdx);
-      if(recBtn){ recBtn.textContent='🎙️'; recBtn.classList.remove('recording'); }
-      trapRecordingIdx = -1;
-      isRecording = false;
-    };
-    mediaRecorder.start();
+  getAudioCtx();
+  navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+    startWavCapture(stream, function(b64){
+      const playBtn=document.getElementById('trapPlay'+globalIdx);
+      const status=document.getElementById('trapStatus'+globalIdx);
+      saveRecording('trap_rec_'+globalIdx, b64, {playBtn:playBtn, statusEl:status});
+    });
     isRecording = true;
     trapRecordingIdx = globalIdx;
     const recBtn = document.getElementById('trapRec'+globalIdx);
     if(recBtn){ recBtn.textContent='⏹'; recBtn.classList.add('recording'); }
     showToast('🎙️ 录音中... 再撳「⏹」停止');
-  }).catch(err=>{
+  }).catch(function(err){
     let msg='⚠️ 無法访问麥克風';
     if(err&&err.name==='NotAllowedError')msg='⚠️ 请允许麥克風權限';
     else if(err&&err.name==='NotFoundError')msg='⚠️ 找不到麥克風設備';
@@ -821,18 +797,10 @@ function playTrapRecording(globalIdx){
   const key = 'trap_rec_'+globalIdx;
   const raw = localStorage.getItem(key);
   if(!raw){ showToast('⚠️ 没录音'); return; }
-  try{
-    let record;
-    try{ record = JSON.parse(raw); }catch(e){ record = {mime:'audio/webm',data:raw}; }
-    const bytes = atob(record.data), nums = new Array(bytes.length);
-    for(let i=0;i<bytes.length;i++) nums[i]=bytes.charCodeAt(i);
-    const blob = new Blob([new Uint8Array(nums)],{type:record.mime||'audio/webm'});
-    const url = URL.createObjectURL(blob);
-    const audio = new Audio(url);
-    audio.play();
-    showToast('🔁 回放: '+ALL_WORDS[globalIdx].word);
-    audio.onended = ()=>{ URL.revokeObjectURL(url); showToast('✅ 回放结束'); };
-  }catch(e){ showToast('⚠️ 读取录音失敗'); }
+  let record;
+  try{ record = JSON.parse(raw); }catch(e){ record = {mime:'audio/webm',data:raw}; }
+  showToast('🔁 回放: '+ALL_WORDS[globalIdx].word);
+  playAudioBlob(record.data, record.mime||'audio/webm');
 }
 
 // ============================================================
@@ -1288,7 +1256,7 @@ function renderTabs(){
       const idx=parseInt(this.dataset.index);
       if(idx!==currentArticleIndex){
         stopSpeaking();
-        if(mediaRecorder&&isRecording){mediaRecorder.stop();isRecording=false}
+        if(isRecording){stopWavCapture();isRecording=false}
         isMasked=false;toggleMaskBtn.textContent='🔒 遮挡双语';toggleMaskBtn.classList.remove('unmask');
         renderArticle(idx);
         showToast('📖 已切换到 '+ARTICLES_RAW[idx].icon+' '+ARTICLES_RAW[idx].title);
@@ -1429,49 +1397,105 @@ function speakNextSentence(index){
 function handlePause(){if(isPlaying){isPaused=true;isPlaying=false;stopSpeaking();updateStatus();updateButtons();showToast('⏸️ 已暂停')}}
 function handleResume(){if(isPaused){isCancelled=false;resumePlaying();showToast('▶️ 继续播放')}}
 
+// ─── 共用：WAV 錄音（跨瀏覽器 / iOS 兼容，解 webm/mp4 播唔出）───
+let _audioCtx=null;
+function getAudioCtx(){
+  if(!_audioCtx){ const AC=window.AudioContext||window.webkitAudioContext; _audioCtx=new AC(); }
+  if(_audioCtx.state==='suspended'){ _audioCtx.resume().catch(function(){}); }
+  return _audioCtx;
+}
+function encodeWAV(samples,sampleRate){
+  const buffer=new ArrayBuffer(44+samples.length*2);
+  const view=new DataView(buffer);
+  const ws=function(o,s){ for(let i=0;i<s.length;i++) view.setUint8(o+i,s.charCodeAt(i)); };
+  ws(0,'RIFF'); view.setUint32(4,36+samples.length*2,true); ws(8,'WAVE');
+  ws(12,'fmt '); view.setUint32(16,16,true); view.setUint16(20,1,true); view.setUint16(22,1,true);
+  view.setUint32(24,sampleRate,true); view.setUint32(28,sampleRate*2,true); view.setUint16(32,2,true); view.setUint16(34,16,true);
+  ws(36,'data'); view.setUint32(40,samples.length*2,true);
+  let off=44; for(let i=0;i<samples.length;i++,off+=2) view.setInt16(off,samples[i],true);
+  return new Blob([view],{type:'audio/wav'});
+}
+let _wavStream=null,_wavProc=null,_wavSrc=null,_wavSilent=null,_wavSamples=[],_wavCtx=null,_wavOnStop=null;
+function startWavCapture(stream,onStop){
+  const ctx=getAudioCtx(); _wavCtx=ctx; _wavSamples=[];
+  _wavSrc=ctx.createMediaStreamSource(stream);
+  _wavProc=ctx.createScriptProcessor(4096,1,1);
+  _wavSilent=ctx.createGain(); _wavSilent.gain.value=0;
+  _wavProc.onaudioprocess=function(e){ const ch=e.inputBuffer.getChannelData(0); _wavSamples.push(new Float32Array(ch)); };
+  _wavSrc.connect(_wavProc); _wavProc.connect(_wavSilent); _wavSilent.connect(ctx.destination);
+  _wavStream=stream; _wavOnStop=onStop;
+}
+function stopWavCapture(){
+  return new Promise(function(resolve){
+    const samples=_wavSamples, ctx=_wavCtx, stream=_wavStream, onStop=_wavOnStop;
+    const proc=_wavProc, silent=_wavSilent, src=_wavSrc;
+    try{ if(proc)proc.disconnect(); if(silent)silent.disconnect(); if(src)src.disconnect(); }catch(e){}
+    if(stream) stream.getTracks().forEach(function(t){ t.stop(); });
+    _wavSamples=[]; _wavStream=null; _wavProc=null; _wavSrc=null; _wavSilent=null; _wavOnStop=null;
+    let len=0; samples.forEach(function(s){ len+=s.length; });
+    const merged=new Float32Array(len); let off=0;
+    samples.forEach(function(s){ merged.set(s,off); off+=s.length; });
+    const int16=new Int16Array(len);
+    for(let i=0;i<len;i++){ let v=Math.max(-1,Math.min(1,merged[i])); int16[i]=v<0?v*0x8000:v*0x7FFF; }
+    const blob=encodeWAV(int16,ctx.sampleRate);
+    const reader=new FileReader();
+    reader.onload=function(){ const b64=reader.result.split(',')[1]; if(onStop)onStop(b64); resolve(b64); };
+    reader.readAsDataURL(blob);
+  });
+}
+function saveRecording(key,b64,ui){
+  try{
+    localStorage.setItem(key,JSON.stringify({mime:'audio/wav',data:b64}));
+    if(ui){ if(ui.playBtn)ui.playBtn.disabled=false; if(ui.statusEl)ui.statusEl.style.display='inline'; if(ui.recBtn){ui.recBtn.textContent='🎙️';ui.recBtn.classList.remove('recording');} if(ui.statusSpan)ui.statusSpan.textContent='✅'; }
+    showToast('✅ 录音已保存！');
+  }catch(e){ showToast('⚠️ 儲存失敗（空间可能不足）'); }
+}
+function playAudioBlob(b64,mime){
+  try{
+    const bytes=atob(b64), nums=new Uint8Array(bytes.length);
+    for(let i=0;i<bytes.length;i++) nums[i]=bytes.charCodeAt(i);
+    const blob=new Blob([nums],{type:mime||'audio/wav'});
+    const url=URL.createObjectURL(blob);
+    const audio=new Audio(url);
+    audio.setAttribute('playsinline',''); audio.setAttribute('webkit-playsinline','');
+    document.body.appendChild(audio); audio.load();
+    const pr=audio.play();
+    if(pr&&pr.catch) pr.catch(function(){ showToast('⚠️ 播放失敗（格式不支援或被限制）'); });
+    audio.onended=function(){ URL.revokeObjectURL(url); audio.remove(); };
+    audio.onerror=function(){ showToast('⚠️ 音頻解碼失敗（舊錄音格式？請重新錄音）'); audio.remove(); };
+  }catch(e){ showToast('⚠️ 無法讀取錄音'); }
+}
+
 function toggleRecording(btn,key,index){
-  if(isRecording){if(mediaRecorder){mediaRecorder.stop();isRecording=false;btn.textContent='🎙';btn.classList.remove('recording');showToast('⏹️ 录音已停止')}return}
-  navigator.mediaDevices.getUserMedia({audio:true}).then(stream=>{
-    const recTypes=['audio/webm','audio/ogg;codecs=opus','audio/mp4'];
-    const recMime=recTypes.find(t=>MediaRecorder.isTypeSupported(t))||'audio/webm';
-    mediaRecorder=new MediaRecorder(stream,{mimeType:recMime});audioChunks=[];
-    mediaRecorder.ondataavailable=event=>{if(event.data.size>0)audioChunks.push(event.data)};
-    mediaRecorder.onstop=function(){
-      const blob=new Blob(audioChunks,{type:recMime});
-      const reader=new FileReader();
-      reader.onload=function(e){
-        const b64=e.target.result.split(',')[1];
-        localStorage.setItem(key,JSON.stringify({mime:recMime,data:b64}));
-        btn.textContent='🎙';btn.classList.remove('recording');isRecording=false;
-        const pb=btn.parentElement.querySelector('.playback-btn');if(pb)pb.disabled=false;
-        let ss=btn.parentElement.querySelector('.record-status');
-        if(!ss){ss=document.createElement('span');ss.className='record-status';btn.parentElement.appendChild(ss)}
-        ss.textContent='✅';showToast('✅ 录音已保存！');
-      };
-      reader.readAsDataURL(blob);
-      stream.getTracks().forEach(t=>t.stop());
-    };
-    mediaRecorder.start();isRecording=true;btn.textContent='⏹';btn.classList.add('recording');showToast('🎙 录音中... 点击停止');
-  }).catch(err=>{
+  if(isRecording){
+    stopWavCapture();
+    isRecording=false; btn.textContent='🎙'; btn.classList.remove('recording'); showToast('⏹️ 录音已停止');
+    return;
+  }
+  getAudioCtx();
+  navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+    startWavCapture(stream, function(b64){
+      const pb=btn.parentElement.querySelector('.playback-btn');
+      let ss=btn.parentElement.querySelector('.record-status');
+      if(!ss){ ss=document.createElement('span'); ss.className='record-status'; btn.parentElement.appendChild(ss); }
+      saveRecording(key,b64,{playBtn:pb,statusSpan:ss});
+    });
+    isRecording=true; btn.textContent='⏹'; btn.classList.add('recording'); showToast('🎙 录音中... 点击停止');
+  }).catch(function(err){
     let msg=' 无法访问麦克风，请允许权限';
     if(err&&err.name==='NotAllowedError')msg=' 请允许麥克風權限后重试';
     else if(err&&err.name==='NotFoundError')msg=' 找不到麥克風設備';
-    showToast(msg);
+    showToast(msg); isRecording=false;
   });
 }
 
 function playRecording(key){
   const raw=localStorage.getItem(key);
   if(!raw){showToast(' 没有找到录音');return}
-  try{
-    let record;
-    try{ record=JSON.parse(raw); }catch(e){ record={mime:'audio/webm',data:raw}; }
-    const byteCharacters=atob(record.data),byteNumbers=new Array(byteCharacters.length);
-    for(let i=0;i<byteCharacters.length;i++)byteNumbers[i]=byteCharacters.charCodeAt(i);
-    const blob=new Blob([new Uint8Array(byteNumbers)],{type:record.mime||'audio/webm'});
-    const audio=new Audio(URL.createObjectURL(blob));audio.play();showToast('🔊 回放录音中...');
-    audio.onended=()=>showToast('✅ 回放结束');
-  }catch(e){showToast(' 无法读取录音文件')}
+  let record;
+  try{ record=JSON.parse(raw); }catch(e){ record={mime:'audio/webm',data:raw}; }
+  showToast('🔊 回放录音中...');
+  playAudioBlob(record.data, record.mime||'audio/webm');
 }
 
 // Button events
