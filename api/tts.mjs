@@ -51,6 +51,19 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Only POST allowed' });
 
+  // 🛡️ 反爬蟲 1：User-Agent 過濾（擋 curl/wget/python-requests 等腳本工具，真實瀏覽器一定有 UA）
+  const ua = req.headers['user-agent'] || '';
+  const BLOCKED_UA = /(curl|wget|python-requests|python-urllib|scrapy|headless|http-client|go-http|java\/|okhttp|axios|postman|node-fetch)/i;
+  if (!ua || BLOCKED_UA.test(ua)) {
+    return res.status(403).json({ error: 'Forbidden' });
+  }
+
+  // 🛡️ 反爬蟲 2：蜜罐欄位（honeypot）— 真人瀏覽器唔會傳 `company`，自動填表爬蟲會
+  const body = req.body || {};
+  if (body.company) {
+    return res.status(403).json({ error: 'Forbidden' });
+  }
+
   // Origin check: REQUIRED and must be in whitelist.
   // Reject empty origin to block direct curl/script abuse (proxy secret is public in frontend JS).
   if (!origin || !ALLOWED_ORIGINS.some(o => origin === o)) {
