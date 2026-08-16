@@ -10,7 +10,7 @@
 <meta http-equiv="Expires" content="0">
 <meta name="apple-mobile-web-app-title" content="UU欧葡跟读">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#1A3C5E">
+<meta name="theme-color" content="#122E55">
 <meta name="application-name" content="U记欧葡跟读">
 <title>U记欧葡跟读 · 发音训练</title>
 <!-- Google Analytics 4 -->
@@ -22,21 +22,24 @@ gtag('js', new Date());
 gtag('config', 'G-TCVB98ZGZ2', { anonymize_ip: true });
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=ZCOOL+KuaiLe&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root {
-  --blue-deep: #1A3C5E; --blue-main: #256D9B; --blue-mid: #4794C7; --blue-light: #E8F1F8;
-  --cream: #F5F0E8; --cream-light: #FAF7F2;
-  --gold: #E0B854; --gold-light: #F0E2C0; --gold-dark: #C49E40;
-  --logo-color: #8B2845; --green-ok: #2E7D32; --red: #C62828;
-  --text-primary: #1A2A3A; --text-secondary: #4A5A6A; --text-muted: #8A96A3;
-  --white: #FFFFFF;
-  --shadow-sm: 0 1px 3px rgba(26,60,94,0.08);
-  --shadow-md: 0 4px 16px rgba(26,60,94,0.10);
-  --radius-sm: 8px; --radius-md: 12px; --radius-lg: 20px;
-  --font-display: 'Fredoka', 'ZCOOL KuaiLe', 'Lora', 'PingFang SC', serif;
-  --font-ui: 'Nunito', 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
-}
+  :root {
+    /* 蓝系 Token（收敛成一套，金色退出互动元件） */
+    --blue-deep: #122E55; --blue-main: #1254B8; --blue-mid: #3B7BD1; --blue-light: #E9EFFA;
+    --primary: #1254B8; --primary-deep: #0B2440; --primary-text: #122E55; --light: #E9EFFA;
+    --disabled: #D8D2C6; --correct: #2F6B5E; --wrong: #B4552D;
+    --cream: #F5F0E8; --cream-light: #FAF7F2;
+    --gold: #E0B854; --gold-light: #F0E2C0; --gold-dark: #C49E40;   /* 仅供装饰花纹使用 */
+    --logo-color: #8B2845; --green-ok: #2F6B5E; --red: #B4552D;     /* 语义色：答对绿 / 答错陶土红 */
+    --text-primary: #1A2A3A; --text-secondary: #4A5A6A; --text-muted: #8A96A3;
+    --white: #FFFFFF;
+    --shadow-sm: 0 1px 3px rgba(18,46,85,0.08);
+    --shadow-md: 0 4px 16px rgba(18,46,85,0.10);
+    --radius-sm: 8px; --radius-md: 12px; --radius-lg: 20px;
+    --font-display: 'Space Grotesk', 'Noto Sans SC', 'PingFang SC', sans-serif;
+    --font-ui: 'Space Grotesk', 'Noto Sans SC', 'PingFang SC', system-ui, sans-serif;
+  }
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 html, body { scroll-behavior: smooth; }
 body {
@@ -46,7 +49,7 @@ body {
 }
 body::before {
   content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
-  background-image: radial-gradient(circle at 12% 18%, rgba(37,109,155,0.04) 0%, transparent 25%),
+  background-image: radial-gradient(circle at 12% 18%, rgba(18,84,184,0.04) 0%, transparent 25%),
     radial-gradient(circle at 88% 82%, rgba(139,40,69,0.05) 0%, transparent 25%);
 }
 body::after {
@@ -66,7 +69,7 @@ body::after {
   padding: 12px 16px 10px;
   padding-top: calc(12px + env(safe-area-inset-top, 0px));
   background: linear-gradient(135deg, var(--cream-light) 0%, rgba(224,184,84,0.06) 100%);
-  color: var(--blue-deep); border-bottom: 1.5px solid rgba(26,60,94,0.08);
+  color: var(--blue-deep); border-bottom: 1.5px solid rgba(18,46,85,0.08);
 }
 .topbar .brand {
   font-family: 'ZCOOL KuaiLe', 'Fredoka', 'PingFang SC', sans-serif;
@@ -130,7 +133,7 @@ body::after {
 }
 .hero-card .stat-num {
   font-family: var(--font-display); font-size: 24px; font-weight: 700;
-  color: var(--gold-dark); line-height: 1.1;
+  color: var(--primary); line-height: 1.1;
 }
 .hero-card .stat-label { font-size: 11px; color: var(--text-muted); }
 .section-title {
@@ -142,7 +145,7 @@ body::after {
 .trap-card {
   background: var(--white); border-radius: 14px; padding: 14px 14px;
   border-left: 3px solid var(--gold);
-  box-shadow: 0 1px 4px rgba(26,60,94,0.06);
+  box-shadow: 0 1px 4px rgba(18,46,85,0.06);
   transition: transform .15s;
 }
 .trap-card:active { transform: scale(0.98); }
@@ -158,7 +161,7 @@ body::after {
   background: var(--green-ok); color: white;
   font-size: 18px; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 2px 6px rgba(46,125,50,0.25);
+  box-shadow: 0 2px 6px rgba(47,107,94,0.25);
   transition: transform 0.15s;
 }
 .trap-card .audio-btn-big:active { transform: scale(0.92); }
@@ -166,11 +169,11 @@ body::after {
 .trap-card .trap-rec-btn, .trap-card .trap-play-btn {
   width: 40px; height: 40px; border-radius: 50%; border: none; cursor: pointer;
   display: flex; align-items: center; justify-content: center; font-size: 17px;
-  box-shadow: 0 2px 6px rgba(26,60,94,0.15); transition: transform 0.15s;
+  box-shadow: 0 2px 6px rgba(18,46,85,0.15); transition: transform 0.15s;
 }
-.trap-card .trap-rec-btn { background: #fff5f0; color: #c62828; }
+.trap-card .trap-rec-btn { background: #FBEEE6; color: #B4552D; }
 .trap-card .trap-rec-btn:active { transform: scale(0.92); }
-.trap-card .trap-rec-btn.recording { background: #c62828; color: #fff; animation: blink .8s infinite; }
+.trap-card .trap-rec-btn.recording { background: #B4552D; color: #fff; animation: blink .8s infinite; }
 .trap-card .trap-play-btn { background: var(--blue-light); color: var(--blue-main); }
 .trap-card .trap-play-btn:active { transform: scale(0.92); }
 .trap-card .trap-play-btn:disabled { background: #ece8e0; color: #b3a394; box-shadow: none; cursor: not-allowed; }
@@ -196,11 +199,11 @@ body::after {
 .trap-card .ex-label { font-size: 11px; font-weight: 600; color: var(--blue-main); letter-spacing: 1px; text-transform: uppercase; }
 .trap-card .audio-btn-ex {
   padding: 5px 12px; border-radius: 30px;
-  background: var(--gold); color: var(--blue-deep); border: none;
+  background: var(--primary); color: #fff; border: none;
   font-size: 11px; font-weight: 600; cursor: pointer; font-family: var(--font-ui);
-  box-shadow: 0 2px 0 var(--gold-dark); transition: transform .15s;
+  box-shadow: 0 3px 0 var(--primary-deep); transition: transform .15s;
 }
-.trap-card .audio-btn-ex:active { transform: translateY(2px); box-shadow: none; }
+.trap-card .audio-btn-ex:active { transform: translateY(3px); box-shadow: 0 0 0 var(--primary-deep); }
 .trap-card .ex-pt { font-family: var(--font-display); font-size: 15px; font-weight: 600; color: var(--text-primary); margin-bottom: 2px; line-height: 1.4; }
 .trap-card .ex-zh { font-size: 12px; color: var(--text-secondary); line-height: 1.5; }
 /* ─── CATEGORY FILTERS ─── */
@@ -214,7 +217,7 @@ body::after {
   color: var(--text-secondary); cursor: pointer; font-family: var(--font-ui);
 }
 .cat-filters .cat-filter:hover { border-color: var(--blue-mid); color: var(--blue-main); }
-.cat-filters .cat-filter.active { background: var(--blue-main); color: var(--white); border-color: var(--blue-main); box-shadow: 0 2px 0 var(--blue-deep); }
+.cat-filters .cat-filter.active { background: var(--blue-main); color: var(--white); border-color: var(--blue-main); box-shadow: 0 2px 0 var(--primary-deep); }
 /* ─── FOLLOW-ALONG PAGE ─── */
 .read-header {
   display: flex; justify-content: space-between; align-items: center;
@@ -268,7 +271,7 @@ body::after {
   text-align: center; line-height: 1.3;
 }
 .article-tabs button:active { transform: scale(0.96); }
-.article-tabs button.active { background: var(--blue-main); color: var(--white); border-color: var(--blue-main); box-shadow: 0 2px 0 var(--blue-deep); }
+.article-tabs button.active { background: var(--blue-main); color: var(--white); border-color: var(--blue-main); box-shadow: 0 2px 0 var(--primary-deep); }
 .play-controls {
   display: flex; gap: 8px;
   margin: 0 16px 12px; flex-wrap: wrap; justify-content: center;
@@ -280,17 +283,17 @@ body::after {
   display: flex; align-items: center; justify-content: center; gap: 4px;
 }
 .play-controls button:active { transform: scale(0.95); }
-.btn-play { background: var(--blue-main); color: var(--white); box-shadow: 0 3px 0 var(--blue-deep); }
+.btn-play { background: var(--blue-main); color: var(--white); box-shadow: 0 3px 0 var(--primary-deep); }
 .btn-play.playing { background: var(--logo-color); box-shadow: 0 3px 0 #6B1D35; }
 .btn-pause { background: #e8e3db; color: var(--text-secondary); }
 .btn-pause:disabled { opacity: .4; pointer-events: none; }
-.btn-resume { background: var(--green-ok); color: var(--white); box-shadow: 0 3px 0 #1B5E20; }
+.btn-resume { background: var(--green-ok); color: var(--white); box-shadow: 0 3px 0 #1E4A40; }
 .btn-resume:disabled { opacity: .4; pointer-events: none; }
 .progress-wrap {
   background: #ede8e2; border-radius: 30px; height: 6px;
   margin: 0 16px 12px; overflow: hidden; cursor: pointer;
 }
-.progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--blue-main), var(--blue-mid)); border-radius: 30px; transition: width .2s; }
+.progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--primary), var(--primary-text)); border-radius: 30px; transition: width .2s; }
 .article-content {
   background: var(--cream-light); border-radius: var(--radius-md);
   padding: 18px 16px; border: 1px solid #f0ebe5;
@@ -328,7 +331,7 @@ body::after {
 .article-content .sentence .record-btn.recording { color: var(--red); animation: blink .8s infinite; }
 .article-content .sentence .playback-btn {
   font-size: 16px; background: none; border: none; cursor: pointer;
-  padding: 6px 10px; border-radius: 30px; transition: .15s; color: #2980b9;
+  padding: 6px 10px; border-radius: 30px; transition: .15s; color: var(--blue-main);
   min-width: 36px; min-height: 36px; display: inline-flex; align-items: center; justify-content: center;
 }
 .article-content .sentence .playback-btn:hover { background: #e8f0f8; }
@@ -349,7 +352,7 @@ body::after {
 }
 .prog-card {
   background: var(--white); border-radius: 14px; padding: 14px;
-  box-shadow: 0 1px 4px rgba(26,60,94,0.06); text-align: center;
+  box-shadow: 0 1px 4px rgba(18,46,85,0.06); text-align: center;
 }
 .prog-num { font-family: var(--font-display); font-size: 26px; font-weight: 700; color: var(--blue-deep); line-height: 1.2; }
 .prog-label { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
@@ -458,7 +461,7 @@ body::after {
     <div class="progress-wrap" id="progressWrap"><div class="progress-bar" id="progressBar"></div></div>
     <div class="article-content" id="articleContent"><div style="text-align:center;padding:50px 20px;color:#8f7a66;font-size:16px;">⏳ 加载中...</div></div>
     <div class="status-bar">
-      <span class="status-text" id="statusText">🔊 点击葡语句子播放，或按「播放全部」</span>
+      <span class="status-text" id="statusText">🔊 点击葡语句子播放，或按“播放全部”</span>
       <span class="status-position" id="statusPosition">句子 0 / 0</span>
     </div>
   </div>
@@ -474,8 +477,8 @@ body::after {
     <div class="trap-card" style="margin:0 16px;background:var(--blue-light);border-left-color:var(--blue-main)">
       <div style="font-size:13px;font-weight:600;color:var(--blue-deep);margin-bottom:6px">💡 使用建议</div>
       <div style="font-size:12px;color:var(--text-secondary);line-height:1.7">
-        1. 先去「发音陷阱」逐个听正确读音<br>
-        2. 再到「跟读」选一篇文章开始练习<br>
+        1. 先去“发音陷阱”逐个听正确读音<br>
+        2. 再到“跟读”选一篇文章开始练习<br>
         3. 开启遮挡模式，尝试自己先读再核对<br>
         4. 用录音功能录下自己的发音回听对比
       </div>
@@ -496,7 +499,7 @@ body::after {
 
 <div class="toast" id="toast"></div>
 
-<!-- 预先建立 audio element（iOS Safari 对隐藏 DOM element 的 data URI 播放更穩定）-->
+<!-- 预先建立 audio element（iOS Safari 对隐藏 DOM element 的 data URI 播放更稳定）-->
 <audio id="azureAudio" preload="auto" playsinline style="display:none"></audio>
 <script src="static-audio.js"></script>
 
@@ -752,7 +755,7 @@ function speakExample(index){
 let trapRecordingIdx = -1; // -1 = 没 trap 录音中
 
 function toggleTrapRecording(globalIdx){
-  // 如果同一个 trap 录緊 → 停止
+  // 如果同一个 trap 录紧 → 停止
   if(trapRecordingIdx === globalIdx && isRecording){
     stopWavCapture();
     isRecording=false; trapRecordingIdx=-1;
@@ -761,9 +764,9 @@ function toggleTrapRecording(globalIdx){
     showToast('⏹️ 录音已停止');
     return;
   }
-  // 如果其他录音中（文章 / 另一个 trap）→ 取消舊
+  // 如果其他录音中（文章 / 另一个 trap）→ 取消旧
   if(isRecording){ stopWavCapture(); isRecording=false; }
-  // 取消舊 trap 录音掣 UI
+  // 取消旧 trap 录音掣 UI
   if(trapRecordingIdx !== -1 && trapRecordingIdx !== globalIdx){
     const oldBtn = document.getElementById('trapRec'+trapRecordingIdx);
     if(oldBtn){ oldBtn.textContent='🎙️'; oldBtn.classList.remove('recording'); }
@@ -782,11 +785,11 @@ function toggleTrapRecording(globalIdx){
     trapRecordingIdx = globalIdx;
     const recBtn = document.getElementById('trapRec'+globalIdx);
     if(recBtn){ recBtn.textContent='⏹'; recBtn.classList.add('recording'); }
-    showToast('🎙️ 录音中... 再撳「⏹」停止');
+    showToast('🎙️ 录音中... 再揿“⏹”停止');
   }).catch(function(err){
-    let msg='⚠️ 無法访问麥克風';
-    if(err&&err.name==='NotAllowedError')msg='⚠️ 请允许麥克風權限';
-    else if(err&&err.name==='NotFoundError')msg='⚠️ 找不到麥克風設備';
+    let msg='⚠️ 无法访问麦克风';
+    if(err&&err.name==='NotAllowedError')msg='⚠️ 请允许麦克风权限';
+    else if(err&&err.name==='NotFoundError')msg='⚠️ 找不到麦克风设备';
     showToast(msg);
     isRecording = false;
     trapRecordingIdx = -1;
@@ -1227,7 +1230,7 @@ function stopSpeaking(){
 }
 
 function applyMask(){
-  // 双语遮擋：葡文 + 中文都遮，点击句子先显示（方便背句子）
+  // 双语遮挡：葡文 + 中文都遮，点击句子先显示（方便背句子）
   document.querySelectorAll('.article-content .sentence .text').forEach(el=>{if(!el.classList.contains('unmasked'))el.classList.add('masked')});
   isMasked=true;toggleMaskBtn.textContent='🔓 显示句子';toggleMaskBtn.classList.add('unmask');
 }
@@ -1309,10 +1312,10 @@ function updateStatus(){
   const pct=Math.round((currentSentenceIndex/total)*100);
   progressBar.style.width=Math.min(pct,100)+'%';
   let msg='';
-  if(isFinished)msg='✅ 全部播放完成！点击「播放全部」重新开始';
+  if(isFinished)msg='✅ 全部播放完成！点击“播放全部”重新开始';
   else if(isPlaying)msg=isSinglePlay?`🔊 播放中... 句子 ${currentSentenceIndex+1} / ${total}`:`🔊 播放全部中... 句子 ${currentSentenceIndex+1} / ${total}`;
   else if(isPaused)msg=`⏸️ 已暂停 — 句子 ${currentSentenceIndex+1} / ${total}`;
-  else msg=`📖 句子 ${currentSentenceIndex+1} / ${total} — 点击葡语句子播放，或按「播放全部」`;
+  else msg=`📖 句子 ${currentSentenceIndex+1} / ${total} — 点击葡语句子播放，或按“播放全部”`;
   statusText.textContent=msg;
   statusPosition.textContent=`句子 ${currentSentenceIndex+1} / ${total}`;
 }
@@ -1325,7 +1328,7 @@ function updateButtons(){
 }
 
 function bindEvents(){
-  // 中葡句子都可点击：遮擋模式 toggle 显示/隐藏；非遮擋时点葡文播放
+  // 中葡句子都可点击：遮挡模式 toggle 显示/隐藏；非遮挡时点葡文播放
   document.querySelectorAll('.sentence .text').forEach(el=>{
     el.addEventListener('click',function(e){
       if(isMasked){handleMaskClick(this);return}
@@ -1397,7 +1400,7 @@ function speakNextSentence(index){
 function handlePause(){if(isPlaying){isPaused=true;isPlaying=false;stopSpeaking();updateStatus();updateButtons();showToast('⏸️ 已暂停')}}
 function handleResume(){if(isPaused){isCancelled=false;resumePlaying();showToast('▶️ 继续播放')}}
 
-// ─── 共用：WAV 錄音（跨瀏覽器 / iOS 兼容，解 webm/mp4 播唔出）───
+// ─── 共用：WAV 录音（跨浏览器 / iOS 兼容，解 webm/mp4 播唔出）───
 let _audioCtx=null;
 function getAudioCtx(){
   if(!_audioCtx){ const AC=window.AudioContext||window.webkitAudioContext; _audioCtx=new AC(); }
@@ -1448,7 +1451,7 @@ function saveRecording(key,b64,ui){
     localStorage.setItem(key,JSON.stringify({mime:'audio/wav',data:b64}));
     if(ui){ if(ui.playBtn)ui.playBtn.disabled=false; if(ui.statusEl)ui.statusEl.style.display='inline'; if(ui.recBtn){ui.recBtn.textContent='🎙️';ui.recBtn.classList.remove('recording');} if(ui.statusSpan)ui.statusSpan.textContent='✅'; }
     showToast('✅ 录音已保存！');
-  }catch(e){ showToast('⚠️ 儲存失敗（空间可能不足）'); }
+  }catch(e){ showToast('⚠️ 储存失败（空间可能不足）'); }
 }
 function playAudioBlob(b64,mime){
   try{
@@ -1460,10 +1463,10 @@ function playAudioBlob(b64,mime){
     audio.setAttribute('playsinline',''); audio.setAttribute('webkit-playsinline','');
     document.body.appendChild(audio); audio.load();
     const pr=audio.play();
-    if(pr&&pr.catch) pr.catch(function(){ showToast('⚠️ 播放失敗（格式不支援或被限制）'); });
+    if(pr&&pr.catch) pr.catch(function(){ showToast('⚠️ 播放失败（格式不支援或被限制）'); });
     audio.onended=function(){ URL.revokeObjectURL(url); audio.remove(); };
-    audio.onerror=function(){ showToast('⚠️ 音頻解碼失敗（舊錄音格式？請重新錄音）'); audio.remove(); };
-  }catch(e){ showToast('⚠️ 無法讀取錄音'); }
+    audio.onerror=function(){ showToast('⚠️ 音频解码失败（旧录音格式？请重新录音）'); audio.remove(); };
+  }catch(e){ showToast('⚠️ 无法读取录音'); }
 }
 
 function toggleRecording(btn,key,index){
@@ -1483,8 +1486,8 @@ function toggleRecording(btn,key,index){
     isRecording=true; btn.textContent='⏹'; btn.classList.add('recording'); showToast('🎙 录音中... 点击停止');
   }).catch(function(err){
     let msg=' 无法访问麦克风，请允许权限';
-    if(err&&err.name==='NotAllowedError')msg=' 请允许麥克風權限后重试';
-    else if(err&&err.name==='NotFoundError')msg=' 找不到麥克風設備';
+    if(err&&err.name==='NotAllowedError')msg=' 请允许麦克风权限后重试';
+    else if(err&&err.name==='NotFoundError')msg=' 找不到麦克风设备';
     showToast(msg); isRecording=false;
   });
 }
