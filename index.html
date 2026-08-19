@@ -8,11 +8,11 @@
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
-<meta name="apple-mobile-web-app-title" content="UU欧葡跟读">
+<meta name="apple-mobile-web-app-title" content="UniPal">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="theme-color" content="#122E55">
-<meta name="application-name" content="U记欧葡跟读">
-<title>U记欧葡跟读 · 发音训练</title>
+<meta name="theme-color" content="#1A3C5E">
+<meta name="application-name" content="UniPal葡语跟读">
+<title>UniPal葡语 · 发音跟读</title>
 <!-- Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-TCVB98ZGZ2"></script>
 <script>
@@ -22,20 +22,20 @@ gtag('js', new Date());
 gtag('config', 'G-TCVB98ZGZ2', { anonymize_ip: true });
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Baloo+2:wght@500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap" rel="stylesheet">
 <style>
   :root {
     /* 蓝系 Token（收敛成一套，金色退出互动元件） */
-    --blue-deep: #122E55; --blue-main: #1254B8; --blue-mid: #3B7BD1; --blue-light: #E9EFFA;
-    --primary: #1254B8; --primary-deep: #0B2440; --primary-text: #122E55; --light: #E9EFFA;
-    --disabled: #D8D2C6; --correct: #2F6B5E; --wrong: #B4552D;
+    --blue-deep: #1A3C5E; --blue-main: #256D9B; --blue-mid: #4794C7; --blue-light: #E8F1F8;
+    --primary: #1254B8; --primary-deep: #1A3C5E; --primary-text: #1A3C5E; --light: #E8F1F8;
+    --disabled: #D8D2C6; --correct: #2E7D32; --wrong: #B4552D;
     --cream: #F5F0E8; --cream-light: #FAF7F2;
-    --gold: #E0B854; --gold-light: #F0E2C0; --gold-dark: #C49E40;   /* 仅供装饰花纹使用 */
-    --logo-color: #8B2845; --green-ok: #2F6B5E; --red: #B4552D;     /* 语义色：答对绿 / 答错陶土红 */
+    --gold: #4794C7; --gold-light: #E8F1F8; --gold-dark: #256D9B;   /* 装饰线已并入 UniPal 蓝系 */
+    --logo-color: #1254B8; --green-ok: #2E7D32; --red: #B4552D;     /* 语义色：答对绿 / 答错陶土红 */
     --text-primary: #1A2A3A; --text-secondary: #4A5A6A; --text-muted: #8A96A3;
     --white: #FFFFFF;
-    --shadow-sm: 0 1px 3px rgba(18,46,85,0.08);
-    --shadow-md: 0 4px 16px rgba(18,46,85,0.10);
+    --shadow-sm: 0 1px 3px rgba(26,60,94,0.08);
+    --shadow-md: 0 4px 16px rgba(26,60,94,0.10);
     --radius-sm: 8px; --radius-md: 12px; --radius-lg: 20px;
     --font-display: 'Space Grotesk', 'Noto Sans SC', 'PingFang SC', sans-serif;
     --font-ui: 'Space Grotesk', 'Noto Sans SC', 'PingFang SC', system-ui, sans-serif;
@@ -60,7 +60,7 @@ body::after {
 .az-top { height: 8px; background: repeating-linear-gradient(90deg, var(--blue-main) 0,var(--blue-main) 30px, var(--white) 30px,var(--white) 33px, var(--gold) 33px,var(--gold) 36px, var(--white) 36px,var(--white) 40px); }
 #app {
   width: 100%; max-width: 480px; margin: 0 auto;
-  background: var(--cream); min-height: 100vh; padding-bottom: 72px;
+  background: var(--cream); min-height: 100vh; padding-bottom: 96px;
   position: relative; z-index: 1;
 }
 /* ─── TOP BAR ─── */
@@ -68,15 +68,13 @@ body::after {
   display: flex; align-items: center; gap: 10px;
   padding: 12px 16px 10px;
   padding-top: calc(12px + env(safe-area-inset-top, 0px));
-  background: linear-gradient(135deg, var(--cream-light) 0%, rgba(224,184,84,0.06) 100%);
-  color: var(--blue-deep); border-bottom: 1.5px solid rgba(18,46,85,0.08);
+  background: linear-gradient(135deg, var(--cream-light) 0%, rgba(18,84,184,0.06) 100%);
+  color: var(--blue-deep); border-bottom: 1.5px solid rgba(26,60,94,0.08);
 }
 .topbar .brand {
-  font-family: 'ZCOOL KuaiLe', 'Fredoka', 'PingFang SC', sans-serif;
-  font-size: 22px; font-weight: 700; white-space: nowrap;
-  background: linear-gradient(135deg, var(--blue-deep) 0%, var(--logo-color) 60%, var(--gold-dark) 100%);
-  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-  background-clip: text; letter-spacing: 0.5px;
+  font-family: 'Baloo 2', 'Noto Sans SC', 'PingFang SC', sans-serif;
+  font-size: 18px; font-weight: 800; white-space: nowrap;
+  color: var(--blue-deep); letter-spacing: 0.3px;
 }
 .topbar .page-title {
   font-family: var(--font-display);
@@ -95,11 +93,11 @@ body::after {
 .page.active { display: block; }
 /* ─── BOTTOM NAV ─── */
 .bottom-nav {
-  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
-  width: 100%; max-width: 480px;
-  background: var(--white); display: flex;
-  border-top: 1px solid #e8e3db;
-  box-shadow: 0 -2px 8px rgba(0,0,0,0.05);
+  position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%);
+  width: calc(100% - 32px); max-width: 448px;
+  background: rgba(255,255,255,0.82); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+  display: flex; border: none; border-radius: 24px; padding: 8px 6px;
+  box-shadow: 0 -6px 24px rgba(18,46,85,0.10);
   z-index: 50; padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 .bottom-nav button {
@@ -111,31 +109,32 @@ body::after {
 }
 .bottom-nav button .tab-icon { font-size: 22px; line-height: 1; }
 .bottom-nav button .tab-label { font-size: 11px; font-weight: 500; }
-.bottom-nav button.active { color: var(--blue-main); }
-.bottom-nav button.active .tab-icon { transform: scale(1.1); }
+.bottom-nav button.active { color: var(--blue-deep); }
+.bottom-nav button.active .tab-label { color: var(--blue-main); font-weight: 800; }
+.bottom-nav button.active .tab-icon { background: var(--blue-light); border-radius: 14px; box-shadow: 0 4px 12px rgba(18,46,85,.12); transform: scale(1.1); padding: 4px 10px; }
 /* ─── HOMEPAGE ─── */
 .hero-card {
   margin: 16px; padding: 22px 20px 18px;
-  background: linear-gradient(135deg, var(--cream-light) 0%, var(--white) 60%, rgba(224,184,84,0.08) 100%);
-  border: 1.5px solid var(--gold); border-radius: var(--radius-md);
-  position: relative; box-shadow: var(--shadow-sm); overflow: hidden;
+  background: linear-gradient(135deg, var(--blue-deep) 0%, var(--logo-color) 100%);
+  border: none; border-radius: 20px; color: #fff;
+  position: relative; box-shadow: 0 16px 36px rgba(18,46,85,.32); overflow: hidden;
 }
-.hero-card::before { content: '\201C'; position: absolute; top: -10px; left: 8px; font-size: 60px; color: var(--gold); font-family: var(--font-display); line-height: 1; opacity: .5; }
-.hero-card::after { content: '\201D'; position: absolute; bottom: -20px; right: 12px; font-size: 60px; color: var(--gold); font-family: var(--font-display); line-height: 1; opacity: .5; }
+.hero-card::before { content: '\201C'; position: absolute; top: -10px; left: 8px; font-size: 60px; color: #fff; font-family: var(--font-display); line-height: 1; opacity: .35; }
+.hero-card::after { content: '\201D'; position: absolute; bottom: -20px; right: 12px; font-size: 60px; color: #fff; font-family: var(--font-display); line-height: 1; opacity: .35; }
 .hero-card h1 {
   font-family: var(--font-display); font-size: 22px; font-weight: 600;
-  color: var(--blue-deep); margin-bottom: 6px;
+  color: #fff; margin-bottom: 6px;
 }
-.hero-card p { font-size: 14px; color: var(--text-secondary); line-height: 1.6; }
+.hero-card p { font-size: 14px; color: rgba(255,255,255,0.85); line-height: 1.6; }
 .hero-card .hero-stats {
   display: flex; gap: 24px; margin-top: 14px; flex-wrap: wrap;
   position: relative; z-index: 1;
 }
 .hero-card .stat-num {
   font-family: var(--font-display); font-size: 24px; font-weight: 700;
-  color: var(--primary); line-height: 1.1;
+  color: #fff; line-height: 1.1;
 }
-.hero-card .stat-label { font-size: 11px; color: var(--text-muted); }
+.hero-card .stat-label { font-size: 11px; color: rgba(255,255,255,0.75); }
 .section-title {
   font-family: var(--font-display); font-size: 17px; font-weight: 600;
   color: var(--blue-deep); margin: 0 16px 10px; display: flex; align-items: center; gap: 8px;
@@ -284,7 +283,7 @@ body::after {
 }
 .play-controls button:active { transform: scale(0.95); }
 .btn-play { background: var(--blue-main); color: var(--white); box-shadow: 0 3px 0 var(--primary-deep); }
-.btn-play.playing { background: var(--logo-color); box-shadow: 0 3px 0 #6B1D35; }
+.btn-play.playing { background: var(--logo-color); box-shadow: 0 3px 0 var(--primary-deep); }
 .btn-pause { background: #e8e3db; color: var(--text-secondary); }
 .btn-pause:disabled { opacity: .4; pointer-events: none; }
 .btn-resume { background: var(--green-ok); color: var(--white); box-shadow: 0 3px 0 #1E4A40; }
@@ -309,10 +308,10 @@ body::after {
 }
 .article-content .sentence:hover { background: #eef4fa; }
 .article-content .sentence.highlight {
-  background: rgba(224,184,84,0.12); padding: 6px 10px;
+  background: rgba(71,148,199,0.14); padding: 6px 10px;
   border-left: 3px solid var(--gold); border-radius: 6px;
 }
-.article-content .sentence .label { font-size: 11px; color: #b3a394; font-weight: 600; margin-right: 2px; }
+.article-content .sentence .label { font-size: 11px; color: var(--text-muted); font-weight: 600; margin-right: 2px; }
 .article-content .sentence .text { color: var(--text-primary); }
 .article-content .sentence .text.zh-text { color: var(--text-secondary); cursor: default; font-size: 14px; }
 .article-content .sentence .text.pt-text { cursor: pointer; transition: .2s; padding: 2px 4px; border-radius: 4px; }
@@ -359,7 +358,7 @@ body::after {
 .prog-icon { font-size: 26px; margin-bottom: 6px; }
 /* ─── TOAST ─── */
 .toast {
-  position: fixed; bottom: 88px; left: 50%; transform: translateX(-50%);
+  position: fixed; bottom: 104px; left: 50%; transform: translateX(-50%);
   background: var(--blue-deep); color: var(--white);
   padding: 10px 20px; border-radius: 40px; font-size: 13px;
   font-weight: 500; opacity: 0; transition: .25s;
@@ -385,7 +384,7 @@ body::after {
 
 <!-- ═══ TOP BAR (dynamic) ═══ -->
 <div id="topbar" class="topbar">
-  <span class="brand">U记欧葡</span>
+  <span class="brand">UniPal葡语跟读</span>
   <span class="page-title" id="pageTitle">跟读训练</span>
   <button class="icon-btn" id="topbarRightBtn">📊</button>
 </div>
@@ -1544,7 +1543,7 @@ function showToast(msg){
 renderTraps();
 renderArticle(0);
 document.getElementById('totalBadge').textContent=ARTICLES_RAW.length+' 篇文章';
-console.log('📖 U记欧葡跟读已加载！共 '+ARTICLES_RAW.length+' 篇文章，10 个发音陷阱');
+console.log('📖 UniPal葡语跟读已加载！共 '+ARTICLES_RAW.length+' 篇文章，10 个发音陷阱');
 </script>
 </body>
 </html>
